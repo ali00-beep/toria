@@ -1,0 +1,82 @@
+"""Запись голоса при удержании горячей клавиши."""
+
+import json
+import threading
+import time
+from pathlib import Path
+
+import numpy as np
+import sounddevice as sd
+import soundfile as sf
+from pynput import keyboard
+
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def load_config() -> tuple[str, Path]:
+    with (ROOT / "config.json").open(encoding="utf-8") as file:
+        config = json.load(file)
+    hotkey = str(config.get("hotkey", "F9")).upper()
+    recordings_folder = ROOT / str(config.get("recordings_folder", "workspace"))
+    return hotkey, recordings_folder
+
+
+def key_from_name(name: str):
+    try:
+        return getattr(keyboard.Key, name.lower())
+    except AttributeError as error:
+        raise ValueError(f"Неизвестная горячая клавиша: {name}") from error
+
+
+def main() -> None:
+    hotkey_name, recordings_folder = load_config()
+    hotkey = key_from_name(hotkey_name)
+    recordings_folder.mkdir(parents=True, exist_ok=True)
+
+    recording = False
+    stop_recording = threading.Event()
+    audio_chunks: list = []
+    started_at = 0.0
+
+    def on_audio(data, frames, callback_time, status):
+        if status:
+            print(f"Предупреждение аудио: {status}")
+        if recording:
+            audio_chunks.append(data.copy())
+
+    def on_press(key):
+        nonlocal recording, started_at, audio_chunks
+        if key == hotkey and not recording:
+            recording = True
+            started_at = time.monotonic()
+            audio_chunks = []
+            stop_recording.clear()
+            print("Запись...")
+
+    def on_release(key):
+        if key == hotkey and recording:
+            stop_recording.set()
+        if key == keyboard.Key.esc:
+            return False
+
+    print(f"Удерживайте {hotkey_name} для записи. Для выхода нажмите Esc.")
+    with sd.InputStream(samplerate=16_000, channels=1, dtype="float32", callback=on_audio):
+        with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+            while listener.is_alive():
+                if stop_recording.wait(0.05):
+                    recording = False
+                    duration = time.monotonic() - started_at
+                    output_file = recordings_folder / "test.wav"
+                    if audio_chunks:
+                        sf.write(output_file, np.concatenate(audio_chunks, axis=0), 16_000)
+                    else:
+                        sf.write(output_file, [], 16_000)
+                    print(f"Запись сохранена, {duration:.1f} секунд")
+                    stop_recording.clear()
+                time.sleep(0.01)
+            listener.join()
+
+
+if __name__ == "__main__":
+    main()

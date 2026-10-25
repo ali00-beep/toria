@@ -1,0 +1,9 @@
+.env
+.venv/
+workspace/
+*.wav
+*.mp3
+*.flac
+__pycache__/
+*.py[cod]
+.pytest_cache/
