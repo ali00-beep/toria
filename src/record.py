@@ -9,17 +9,26 @@ import numpy as np
 import sounddevice as sd
 import soundfile as sf
 from pynput import keyboard
+from faster_whisper import WhisperModel
 
 
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def load_config() -> tuple[str, Path]:
+def load_config() -> tuple[str, Path, str]:
     with (ROOT / "config.json").open(encoding="utf-8") as file:
         config = json.load(file)
     hotkey = str(config.get("hotkey", "F9")).upper()
     recordings_folder = ROOT / str(config.get("recordings_folder", "workspace"))
-    return hotkey, recordings_folder
+    whisper_model = str(config.get("whisper_model", "base"))
+    return hotkey, recordings_folder, whisper_model
+
+
+def transcribe(audio_file: Path, model_name: str) -> None:
+    model = WhisperModel(model_name, device="auto", compute_type="default")
+    segments, _ = model.transcribe(str(audio_file), language="ru")
+    text = " ".join(segment.text.strip() for segment in segments).strip()
+    print(f"Распознано: {text}")
 
 
 def key_from_name(name: str):
@@ -30,7 +39,7 @@ def key_from_name(name: str):
 
 
 def main() -> None:
-    hotkey_name, recordings_folder = load_config()
+    hotkey_name, recordings_folder, whisper_model = load_config()
     hotkey = key_from_name(hotkey_name)
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
@@ -73,6 +82,7 @@ def main() -> None:
                     else:
                         sf.write(output_file, [], 16_000)
                     print(f"Запись сохранена, {duration:.1f} секунд")
+                    transcribe(output_file, whisper_model)
                     stop_recording.clear()
                 time.sleep(0.01)
             listener.join()
