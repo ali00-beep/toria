@@ -40,9 +40,17 @@ def transcribe(audio_file: Path, model_name: str) -> None:
     else:
         audio = audio.astype(np.float32, copy=False)
 
-    model = WhisperModel(model_name, device="auto", compute_type="default")
-    segments, _ = model.transcribe(audio, language="ru")
-    text = " ".join(segment.text.strip() for segment in segments).strip()
+    def run_model(model: WhisperModel) -> str:
+        segments, _ = model.transcribe(audio, language="ru")
+        return " ".join(segment.text.strip() for segment in segments).strip()
+
+    try:
+        text = run_model(WhisperModel(model_name, device="auto", compute_type="default"))
+    except RuntimeError as error:
+        if "cublas64_12.dll" not in str(error).lower():
+            raise
+        print("GPU недоступен (не найден CUDA cublas), повторяю на CPU...")
+        text = run_model(WhisperModel(model_name, device="cpu", compute_type="int8"))
     print(f"Распознано: {text}")
 
 
