@@ -30,10 +30,12 @@ from faster_whisper import WhisperModel
 try:
     from dispatcher import dispatch
     from dispatcher import dispatch_stream
+    from executor import execute
     from tts import SpeechManager
 except ImportError:
     from .dispatcher import dispatch
     from .dispatcher import dispatch_stream
+    from .executor import execute
     from .tts import SpeechManager
 
 
@@ -149,8 +151,21 @@ def warmup_dispatcher(dispatcher_config: dict) -> None:
         print("Диспетчер готов")
 
 
+def run_executor(task: str, original_text: str, executor_config: dict, speech: SpeechManager) -> None:
+    print("Исполнитель работает...")
+    try:
+        output_path = execute(task, original_text, executor_config, ROOT)
+        print(f"Файл сохранён: {output_path}")
+        speech.speak("Готово, файл сохранён")
+    except Exception as error:
+        print(f"Ошибка исполнителя: {error}")
+        speech.speak("Не получилось")
+
+
 def main() -> None:
     hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config = load_config()
+    with (ROOT / "config.json").open(encoding="utf-8") as file:
+        executor_config = json.load(file).get("executor", {})
     hotkey = key_from_name(hotkey_name)
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
@@ -215,6 +230,12 @@ def main() -> None:
                     result = dispatch_stream(recognized_text, dispatcher_config, ROOT, on_sentence)
                     if result is not None:
                         print(f"Задача: {result['task'] or 'нет'}")
+                        if result["task"]:
+                            threading.Thread(
+                                target=run_executor,
+                                args=(result["task"], recognized_text, executor_config, speech),
+                                daemon=True,
+                            ).start()
                     stop_recording.clear()
                 time.sleep(0.01)
             listener.join()

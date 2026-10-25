@@ -1,7 +1,8 @@
-"""Фоновая озвучка коротких ответов."""
+"""Фоновая озвучка с отдельными очередями синтеза и воспроизведения."""
 
 import asyncio
 import queue
+import re
 import tempfile
 import threading
 import time
@@ -12,92 +13,141 @@ import pygame
 import pyttsx3
 
 
+def split_long_text(text: str, limit: int = 70) -> list[str]:
+    """Делит длинный ответ на естественные фрагменты для раннего TTS."""
+    text = " ".join(text.split())
+    if len(text) <= limit:
+        return [text]
+    parts: list[str] = []
+    remaining = text
+    while len(remaining) > limit:
+        boundaries = []
+        for match in re.finditer(r"[,;]\s+|\s+(?=(?:и|а|но|также)\b)", remaining, flags=re.IGNORECASE):
+            position = match.end() if match.group(0).strip() in {",", ";"} else match.start()
+            if 45 <= position <= limit + 5:
+                boundaries.append(position)
+        position = max(boundaries, default=-1)
+        if position < 0:
+            position = remaining.rfind(" ", 45, limit + 1)
+        if position <= 0:
+            position = remaining.find(" ", limit)
+        if position <= 0:
+            break
+        parts.append(remaining[:position].strip())
+        remaining = remaining[position:].strip()
+    if remaining:
+        parts.append(remaining)
+    return parts
+
+
 class SpeechManager:
     def __init__(self, config: dict):
         self.engine_name = str(config.get("engine", "edge")).lower()
         self.voice = str(config.get("voice", "ru-RU-SvetlanaNeural"))
         self.speed = float(config.get("speed", 1.0))
-        self._stop_event = threading.Event()
         self._lock = threading.Lock()
-        self._queue: queue.Queue[tuple[str, threading.Event]] = queue.Queue()
-        self._thread = threading.Thread(target=self._worker, daemon=True)
-        self._thread.start()
-        self._current_event: threading.Event | None = None
+        self._stop_event = threading.Event()
+        self._synthesis_queue: queue.Queue = queue.Queue()
+        self._playback_queue: queue.Queue = queue.Queue()
+        self._current_engine = None
+        self._pygame_ready = False
         self._timing_started_at: float | None = None
         self._audio_started = False
-        self._windows_engine = None
-        self._pygame_ready = False
+        threading.Thread(target=self._synthesis_worker, daemon=True).start()
+        threading.Thread(target=self._playback_worker, daemon=True).start()
 
     def stop(self) -> None:
-        if self._current_event is not None:
-            self._current_event.set()
+        self._stop_event.set()
         with self._lock:
-            if self._windows_engine is not None:
+            if self._current_engine is not None:
                 try:
-                    self._windows_engine.stop()
+                    self._current_engine.stop()
                 except Exception:
                     pass
             if self._pygame_ready:
                 self._release_music()
-        while not self._queue.empty():
+        self._clear_queue(self._synthesis_queue)
+        self._clear_queue(self._playback_queue)
+
+    @staticmethod
+    def _clear_queue(items: queue.Queue) -> None:
+        while True:
             try:
-                self._queue.get_nowait()
+                item = items.get_nowait()
             except queue.Empty:
-                break
+                return
+            if isinstance(item, tuple) and len(item) > 1 and isinstance(item[1], Path):
+                item[1].unlink(missing_ok=True)
 
     def speak(self, text: str, timing_started_at: float | None = None) -> None:
         if not text.strip():
             return
         self.stop()
-        self._current_event = threading.Event()
+        self._stop_event = threading.Event()
         self._timing_started_at = timing_started_at
         self._audio_started = False
-        self._queue.put((text, self._current_event))
+        fragments = split_long_text(text)
+        self._synthesis_queue.put((fragments[0], self._stop_event))
+        for fragment in fragments[1:]:
+            self._synthesis_queue.put((fragment, self._stop_event))
 
     def enqueue(self, text: str) -> None:
-        if text.strip() and self._current_event is not None:
-            self._queue.put((text, self._current_event))
+        if text.strip() and not self._stop_event.is_set():
+            for fragment in split_long_text(text):
+                self._synthesis_queue.put((fragment, self._stop_event))
 
-    def _worker(self) -> None:
+    def _synthesis_worker(self) -> None:
         while True:
-            text, stop_event = self._queue.get()
-            if not stop_event.is_set():
-                self._run(text, stop_event)
-
-    def _run(self, text: str, stop_event: threading.Event) -> None:
-        if self.engine_name == "windows":
-            self._speak_windows(text, stop_event)
-            return
-        try:
-            self._speak_edge(text, stop_event)
-        except Exception as error:
+            text, stop_event = self._synthesis_queue.get()
             if stop_event.is_set():
-                return
-            print(f"Edge TTS недоступен ({error}), использую Windows TTS")
-            self._speak_windows(text, stop_event)
+                continue
+            if self.engine_name == "windows":
+                self._playback_queue.put(("windows", text, stop_event))
+                continue
+            try:
+                audio_file = self._synthesize_edge(text, stop_event)
+                if audio_file is not None:
+                    self._playback_queue.put(("edge", audio_file, stop_event))
+            except Exception as error:
+                if not stop_event.is_set():
+                    print(f"Edge TTS недоступен ({error}), использую Windows TTS")
+                    self._playback_queue.put(("windows", text, stop_event))
 
-    def _speak_edge(self, text: str, stop_event: threading.Event) -> None:
+    def _playback_worker(self) -> None:
+        while True:
+            engine, value, stop_event = self._playback_queue.get()
+            if stop_event.is_set():
+                if engine == "edge":
+                    value.unlink(missing_ok=True)
+                continue
+            if engine == "edge":
+                self._play_edge_file(value, stop_event)
+            else:
+                self._speak_windows(value, stop_event)
+
+    def _synthesize_edge(self, text: str, stop_event: threading.Event) -> Path | None:
         rate = f"{round((self.speed - 1) * 100):+d}%"
-        synthesis_started_at = time.perf_counter()
+        started_at = time.perf_counter()
         if self._timing_started_at is not None:
-            print(f"Начало синтеза: {synthesis_started_at - self._timing_started_at:.1f} секунд")
+            print(f"Начало синтеза: {started_at - self._timing_started_at:.1f} секунд")
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as file:
             audio_file = Path(file.name)
+        asyncio.run(edge_tts.Communicate(text, self.voice, rate=rate).save(str(audio_file)))
+        if stop_event.is_set():
+            audio_file.unlink(missing_ok=True)
+            return None
+        if self._timing_started_at is not None:
+            print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
+        return audio_file
+
+    def _play_edge_file(self, audio_file: Path, stop_event: threading.Event) -> None:
         try:
-            asyncio.run(edge_tts.Communicate(text, self.voice, rate=rate).save(str(audio_file)))
-            if self._timing_started_at is not None:
-                print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
-            if stop_event.is_set():
-                return
             if not self._pygame_ready:
                 pygame.mixer.init()
                 self._pygame_ready = True
             pygame.mixer.music.load(str(audio_file))
             pygame.mixer.music.play()
-            if not self._audio_started:
-                self._audio_started = True
-                if self._timing_started_at is not None:
-                    print(f"Время до начала звука: {time.perf_counter() - self._timing_started_at:.1f} секунд")
+            self._mark_audio_started()
             while pygame.mixer.music.get_busy() and not stop_event.wait(0.05):
                 pass
         finally:
@@ -117,10 +167,16 @@ class SpeechManager:
         except pygame.error:
             pass
 
+    def _mark_audio_started(self) -> None:
+        if not self._audio_started:
+            self._audio_started = True
+            if self._timing_started_at is not None:
+                print(f"Время до начала звука: {time.perf_counter() - self._timing_started_at:.1f} секунд")
+
     def _speak_windows(self, text: str, stop_event: threading.Event) -> None:
         engine = pyttsx3.init()
         with self._lock:
-            self._windows_engine = engine
+            self._current_engine = engine
         engine.setProperty("rate", max(80, round(180 * self.speed)))
         engine.setProperty("volume", 1.0)
         for voice in engine.getProperty("voices"):
@@ -129,17 +185,10 @@ class SpeechManager:
                 break
         engine.say(text)
         try:
-            if self._timing_started_at is not None:
-                print(f"Начало синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
-            if not self._audio_started:
-                self._audio_started = True
-                if self._timing_started_at is not None:
-                    print(f"Время до начала звука: {time.perf_counter() - self._timing_started_at:.1f} секунд")
+            self._mark_audio_started()
             engine.runAndWait()
-            if self._timing_started_at is not None:
-                print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
         finally:
             with self._lock:
-                self._windows_engine = None
+                self._current_engine = None
             if stop_event.is_set():
                 engine.stop()
