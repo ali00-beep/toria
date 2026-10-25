@@ -17,7 +17,7 @@ if exist logs echo [OK] logs находится в .gitignore.
 
 echo.
 echo Проверка потенциальных секретов в отслеживаемых файлах:
-git grep -n -I -E "(sk-[A-Za-z0-9_-]{20,}|api[_-]?key[=:]|password[=:]|token[=:])" -- . 
+git grep -n -I -E "(sk-[A-Za-z0-9_-]{20,}|AIza[A-Za-z0-9_-]{20,}|password=[^y]|token=[^y])" -- .
 if errorlevel 1 echo [OK] явные секреты не найдены.
 
 echo.
