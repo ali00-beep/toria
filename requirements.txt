@@ -7,3 +7,6 @@ nvidia-cublas-cu12
 nvidia-cudnn-cu12==9.*
 openai>=1.0,<2
 python-dotenv>=1.0,<2
+edge-tts>=7.2,<8
+pyttsx3>=2.98,<3
+pygame-ce>=2.5,<3

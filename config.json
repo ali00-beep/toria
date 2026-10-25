@@ -16,5 +16,10 @@
     "base_url": "https://api.deepseek.com/v1",
     "model": "CHANGE_ME",
     "api_key_env": "DEEPSEEK_API_KEY"
+  },
+  "tts": {
+    "engine": "edge",
+    "voice": "ru-RU-SvetlanaNeural",
+    "speed": 1.0
   }
 }
