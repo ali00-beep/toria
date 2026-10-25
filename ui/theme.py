@@ -11,3 +11,5 @@ DISPATCHER = "⏺"
 EXECUTOR = "⏺"
 OK = "✓"
 FAIL = "✗"
+ART_STYLES = ("#444444", "#666666", "#888888", "#aaaaaa", "#cccccc", "#eeeeee")
+ART_CHARS = " .:-=+*#%"

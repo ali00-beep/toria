@@ -3,6 +3,7 @@
 import json
 import os
 import queue
+import shutil
 import subprocess
 import sys
 import threading
@@ -17,23 +18,19 @@ from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.application import Application
 from prompt_toolkit.layout import HSplit, Layout
 from prompt_toolkit.widgets import Frame, Label, RadioList
-from rich import box
 from rich.columns import Columns
 from rich.console import Console, Group
-from rich.panel import Panel
-from rich.table import Table
 from rich.text import Text
 
 from . import theme
 
 ROOT = Path(__file__).resolve().parent.parent
-LOGO = [
-    " ███    ████  █████  █   █  █████",
-    "█   █  █      █      ██  █    █  ",
-    "█████  █  ██  ████   █ █ █    █  ",
-    "█   █  █   █  █      █  ██    █  ",
-    "█   █   ████  █████  █   █    █  ",
-]
+ART_PATH = ROOT / "ui" / "assets" / "toria_art.txt"
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 
 
 class ConsoleUI:
@@ -54,19 +51,32 @@ class ConsoleUI:
             return {}
 
     def header(self):
-        logo = []
-        for line in LOGO:
-            colored = Text()
-            for index, char in enumerate(line):
-                colored.append(char, style=theme.ACCENT_START if index < len(line) / 2 else theme.ACCENT_END)
-            logo.append(colored)
-        info = Table.grid(padding=(0, 1))
-        info.add_row(Text(">_ Голосовой агент (v0.1)", style="bold white"))
-        info.add_row(Text(f"Диспетчер: ✓ {self.config.get('dispatcher', {}).get('model', '—')}", style=theme.MUTED))
-        info.add_row(Text(f"Исполнитель: ✓ {self.config.get('executor', {}).get('model', '—')}", style=theme.MUTED))
-        info.add_row(Text(f"Проект: {ROOT}", style=theme.MUTED))
-        self.console.print(Columns([Group(*logo), Panel(info, box=box.SIMPLE, border_style=theme.MUTED, padding=(0, 1))], expand=True))
-        self.console.print(Text("Подсказка: /модели — выбрать нейросети", style=theme.MUTED))
+        right = [
+            Text("Toria", style="bold white"),
+            Text("Голосовой помощник для вашего ПК"),
+            Text(""),
+            Text("v0.1", style=theme.MUTED),
+            Text("─" * 34, style=theme.MUTED),
+            Text("Начало работы", style="bold white"),
+            Text("> /модели       выбрать нейросети", style=theme.SUCCESS),
+            Text("  /детали       показать или скрыть технические строки"),
+            Text("  /лог          показать последние строки лога"),
+            Text("  /выход        завершить работу"),
+            Text(""),
+            Text("F9 — запись голосовой команды", style=theme.MUTED),
+        ]
+        try:
+            art_lines = ART_PATH.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            art_lines = []
+        width = shutil.get_terminal_size((120, 30)).columns
+        if width >= 90 and art_lines:
+            art = Group(*[Text(line, style=theme.ART_STYLES[min(i // 3, len(theme.ART_STYLES) - 1)]) for i, line in enumerate(art_lines)])
+            padding = max(0, (len(art_lines) - len(right)) // 2)
+            right_group = Group(*([Text("")] * padding + right))
+            self.console.print(Columns([art, right_group], expand=False, padding=(0, 4)))
+        else:
+            self.console.print(Group(*right))
 
     def start_voice(self):
         python_path = ROOT / ".venv" / "Scripts" / "python.exe"
@@ -118,7 +128,10 @@ class ConsoleUI:
         self.console.print(value, style=theme.MUTED)
 
     def _models_menu(self):
-        choices = [("dispatcher", "Диспетчер\n  Модель понимания команд"), ("executor", "Исполнитель\n  Модель генерации файлов")]
+        choices = [
+            ("dispatcher", f"Диспетчер: {self.config.get('dispatcher', {}).get('model', '—')}\n  Модель понимания команд"),
+            ("executor", f"Исполнитель: {self.config.get('executor', {}).get('model', '—')}\n  Модель генерации файлов"),
+        ]
         radio = RadioList(choices)
         menu = Application(layout=Layout(Frame(HSplit([Label("Модели"), radio]), title="Модели")), full_screen=False)
         radio.focus(); menu.run()
@@ -131,6 +144,9 @@ class ConsoleUI:
             self.details = not self.details
             state = "показаны" if self.details else "скрыты"
             self.console.print(f"Детали: {state}", style=theme.MUTED)
+            if self.details:
+                self.console.print(f"Диспетчер: {self.config.get('dispatcher', {}).get('model', '—')}", style=theme.MUTED)
+                self.console.print(f"Исполнитель: {self.config.get('executor', {}).get('model', '—')}", style=theme.MUTED)
             return True
         if command == "/модели": self._models_menu()
         elif command == "/лог": self._show_log()
@@ -179,6 +195,8 @@ class ConsoleUI:
             self.console.print(f"{theme.FAIL} ошибка: {error}", style=theme.ERROR)
 
     def run(self):
+        if os.name == "nt":
+            os.system("title Toria")
         self.header()
         self.console.print("Запуск… ", end="")
         self.start_voice()
