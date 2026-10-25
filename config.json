@@ -26,7 +26,7 @@
   },
   "voice_activation": {
     "always_listen": true,
-    "wake_words": ["тора", "ториа", "тори", "алиса"],
+    "wake_words": ["тора", "ториа", "тори", "алиса", "але", "алё", "алеса"],
     "wake_response": "Да, слушаю.",
     "voice_threshold": 0.03,
     "silence_duration": 0.8,
