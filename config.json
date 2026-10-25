@@ -1,8 +1,8 @@
 {
   "hotkey": "F9",
   "recordings_folder": "workspace",
-  "whisper_model": "small",
-  "whisper_device": "cpu",
+  "whisper_model": "medium",
+  "whisper_device": "cuda",
   "beam_size": 5,
   "language": "ru"
 }

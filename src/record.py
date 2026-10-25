@@ -1,6 +1,8 @@
 """Запись голоса при удержании горячей клавиши."""
 
 import json
+import os
+import sys
 import threading
 import time
 from pathlib import Path
@@ -9,6 +11,21 @@ import numpy as np
 import sounddevice as sd
 import soundfile as sf
 from pynput import keyboard
+
+
+_CUDA_DLL_HANDLES = []
+if os.name == "nt":
+    site_packages = Path(sys.prefix) / "Lib" / "site-packages"
+    for relative_path in (
+        "nvidia/cublas/bin",
+        "nvidia/cudnn/bin",
+        "nvidia/cuda_nvrtc/bin",
+    ):
+        dll_path = site_packages / relative_path
+        if dll_path.is_dir():
+            os.environ["PATH"] = str(dll_path) + os.pathsep + os.environ.get("PATH", "")
+            _CUDA_DLL_HANDLES.append(os.add_dll_directory(str(dll_path)))
+
 from faster_whisper import WhisperModel
 
 
