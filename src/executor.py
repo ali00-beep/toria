@@ -2,6 +2,7 @@
 
 import os
 import re
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -34,13 +35,19 @@ def _extract_code(content: str) -> tuple[str, str]:
     return language, code + "\n"
 
 
-def _next_output_path(output_dir: Path, task: str, extension: str) -> Path:
-    name = re.sub(r"[^\w\- ]", "", task, flags=re.UNICODE).strip()
-    name = re.sub(r"\s+", "_", name)[:45] or "generated_task"
-    candidate = output_dir / f"{name}{extension}"
+def _extract_filename(content: str) -> str | None:
+    first_line = next((line.strip() for line in content.splitlines() if line.strip()), "")
+    if re.fullmatch(r"[a-z][a-z0-9_]{0,28}\.(?:py|js|ts|ps1|sh|json)", first_line):
+        return first_line
+    return None
+
+
+def _next_output_path(output_dir: Path, filename: str) -> Path:
+    candidate = output_dir / filename
     number = 2
     while candidate.exists():
-        candidate = output_dir / f"{name}_{number}{extension}"
+        stem, extension = Path(filename).stem, Path(filename).suffix
+        candidate = output_dir / f"{stem}_{number}{extension}"
         number += 1
     return candidate
 
@@ -71,9 +78,12 @@ def execute(task: str, original_text: str, config: dict, root: Path) -> Path:
         temperature=float(config.get("temperature", 0.2)),
     )
     content = response.choices[0].message.content or ""
+    filename = _extract_filename(content)
     language, code = _extract_code(content)
     output_dir = root / "workspace" / "output"
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = _next_output_path(output_dir, task, EXTENSIONS.get(language, ".py"))
+    if filename is None:
+        filename = f"script_{datetime.now():%Y%m%d_%H%M%S}.py"
+    output_path = _next_output_path(output_dir, filename)
     output_path.write_text(code, encoding="utf-8")
     return output_path
