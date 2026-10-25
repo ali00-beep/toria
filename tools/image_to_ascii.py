@@ -36,7 +36,12 @@ for y in range(height):
     row = []
     for x in range(width):
         raw_brightness = image.getpixel((x, y))
-        brightness = raw_brightness
+        # Подчёркиваем основание лучей и мягко приглушаем их концы.
+        dx = (x - (width - 1) / 2) / (width / 2)
+        dy = (y - (height - 1) / 2) / (height / 2)
+        radius = min(1.0, (dx * dx + dy * dy) ** 0.5)
+        center_boost = 1.30 - 0.65 * radius
+        brightness = max(0, min(255, round(raw_brightness * center_boost)))
         row.append({"char": chars[brightness * (len(chars) - 1) // 255], "brightness": brightness})
     cells.append(row)
 output.parent.mkdir(parents=True, exist_ok=True)
