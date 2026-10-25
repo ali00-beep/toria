@@ -26,7 +26,7 @@
   },
   "tts": {
     "engine": "edge",
-    "voice": "ru-RU-SvetlanaNeural",
-    "speed": 1.0
+    "voice": "ru-RU-DmitryNeural",
+    "speed": 0.96
   }
 }
