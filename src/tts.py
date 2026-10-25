@@ -45,8 +45,6 @@ class SpeechManager:
         self.engine_name = str(config.get("engine", "edge")).lower()
         self.voice = str(config.get("voice", "ru-RU-SvetlanaNeural"))
         self.speed = float(config.get("speed", 1.0))
-        self.fallback_to_windows = bool(config.get("fallback_to_windows", True))
-        self.windows_voice = str(config.get("windows_voice", "Microsoft Irina Desktop - Russian"))
         self._lock = threading.Lock()
         self._stop_event = threading.Event()
         self._synthesis_queue: queue.Queue = queue.Queue()
@@ -111,11 +109,9 @@ class SpeechManager:
                 if audio_file is not None:
                     self._playback_queue.put(("edge", audio_file, stop_event))
             except Exception as error:
-                if not stop_event.is_set() and self.fallback_to_windows:
+                if not stop_event.is_set():
                     print(f"Edge TTS недоступен ({error}), использую Windows TTS")
                     self._playback_queue.put(("windows", text, stop_event))
-                elif not stop_event.is_set():
-                    print(f"Edge TTS недоступен ({error}), фрагмент пропущен")
 
     def _playback_worker(self) -> None:
         while True:
@@ -131,27 +127,18 @@ class SpeechManager:
 
     def _synthesize_edge(self, text: str, stop_event: threading.Event) -> Path | None:
         rate = f"{round((self.speed - 1) * 100):+d}%"
-        for attempt in range(3):
-            if stop_event.is_set():
-                return None
-            started_at = time.perf_counter()
-            if self._timing_started_at is not None:
-                print(f"Начало синтеза: {started_at - self._timing_started_at:.1f} секунд")
-            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as file:
-                audio_file = Path(file.name)
-            try:
-                asyncio.run(edge_tts.Communicate(text, self.voice, rate=rate).save(str(audio_file)))
-                if stop_event.is_set():
-                    audio_file.unlink(missing_ok=True)
-                    return None
-                if self._timing_started_at is not None:
-                    print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
-                return audio_file
-            except Exception:
-                audio_file.unlink(missing_ok=True)
-                if attempt == 2:
-                    raise
-                time.sleep(0.5 * (attempt + 1))
+        started_at = time.perf_counter()
+        if self._timing_started_at is not None:
+            print(f"Начало синтеза: {started_at - self._timing_started_at:.1f} секунд")
+        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as file:
+            audio_file = Path(file.name)
+        asyncio.run(edge_tts.Communicate(text, self.voice, rate=rate).save(str(audio_file)))
+        if stop_event.is_set():
+            audio_file.unlink(missing_ok=True)
+            return None
+        if self._timing_started_at is not None:
+            print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
+        return audio_file
 
     def _play_edge_file(self, audio_file: Path, stop_event: threading.Event) -> None:
         try:
@@ -193,10 +180,7 @@ class SpeechManager:
         engine.setProperty("rate", max(80, round(180 * self.speed)))
         engine.setProperty("volume", 1.0)
         for voice in engine.getProperty("voices"):
-            voice_info = f"{voice.id} {voice.name} {voice.languages}".lower()
-            if self.windows_voice.lower() in voice_info or (
-                self.windows_voice == "auto" and "ru-ru" in voice_info
-            ):
+            if self.voice.lower() in f"{voice.id} {voice.name}".lower():
                 engine.setProperty("voice", voice.id)
                 break
         engine.say(text)

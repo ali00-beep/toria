@@ -26,9 +26,7 @@
   },
   "tts": {
     "engine": "edge",
-    "voice": "ru-RU-DmitryNeural",
-    "speed": 0.96,
-    "fallback_to_windows": true,
-    "windows_voice": "Microsoft Irina Desktop - Russian"
+    "voice": "ru-RU-SvetlanaNeural",
+    "speed": 1.0
   }
 }
