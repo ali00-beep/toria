@@ -45,7 +45,8 @@ class SpeechManager:
         self.engine_name = str(config.get("engine", "edge")).lower()
         self.voice = str(config.get("voice", "ru-RU-SvetlanaNeural"))
         self.speed = float(config.get("speed", 1.0))
-        self.fallback_to_windows = bool(config.get("fallback_to_windows", False))
+        self.fallback_to_windows = bool(config.get("fallback_to_windows", True))
+        self.windows_voice = str(config.get("windows_voice", "Microsoft Irina Desktop - Russian"))
         self._lock = threading.Lock()
         self._stop_event = threading.Event()
         self._synthesis_queue: queue.Queue = queue.Queue()
@@ -192,7 +193,10 @@ class SpeechManager:
         engine.setProperty("rate", max(80, round(180 * self.speed)))
         engine.setProperty("volume", 1.0)
         for voice in engine.getProperty("voices"):
-            if self.voice.lower() in f"{voice.id} {voice.name}".lower():
+            voice_info = f"{voice.id} {voice.name} {voice.languages}".lower()
+            if self.windows_voice.lower() in voice_info or (
+                self.windows_voice == "auto" and "ru-ru" in voice_info
+            ):
                 engine.setProperty("voice", voice.id)
                 break
         engine.say(text)

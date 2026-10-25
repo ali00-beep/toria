@@ -28,6 +28,7 @@
     "engine": "edge",
     "voice": "ru-RU-DmitryNeural",
     "speed": 0.96,
-    "fallback_to_windows": false
+    "fallback_to_windows": true,
+    "windows_voice": "Microsoft Irina Desktop - Russian"
   }
 }
