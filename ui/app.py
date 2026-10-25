@@ -7,11 +7,13 @@ import subprocess
 import sys
 import threading
 import time
+from datetime import datetime
 from pathlib import Path
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.formatted_text import HTML
+from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.application import Application
 from prompt_toolkit.layout import HSplit, Layout
 from prompt_toolkit.widgets import Frame, Label, RadioList
@@ -41,6 +43,8 @@ class ConsoleUI:
         self.output_queue = queue.Queue()
         self.process = None
         self.stop_event = threading.Event()
+        self.details = False
+        self.operation_started = None
 
     @staticmethod
     def _load_config():
@@ -63,7 +67,6 @@ class ConsoleUI:
         info.add_row(Text(f"Проект: {ROOT}", style=theme.MUTED))
         self.console.print(Columns([Group(*logo), Panel(info, box=box.SIMPLE, border_style=theme.MUTED, padding=(0, 1))], expand=True))
         self.console.print(Text("Подсказка: /модели — выбрать нейросети", style=theme.MUTED))
-        self.console.print()
 
     def start_voice(self):
         python_path = ROOT / ".venv" / "Scripts" / "python.exe"
@@ -77,28 +80,42 @@ class ConsoleUI:
             for line in self.process.stdout:
                 line = line.rstrip()
                 if not line.startswith("pygame-ce"):
-                    self.output_queue.put(line)
-
-    def _drain_voice(self):
-        while True:
-            try:
-                self._print_event(self.output_queue.get_nowait())
-            except queue.Empty:
-                return
+                    self._print_event(line)
 
     def _print_event(self, message):
+        technical = any(marker in message for marker in (
+            "Прогрев", "Распознавание заняло", "Время до", "Начало синтеза", "Конец синтеза",
+        ))
+        if technical and not self.details:
+            return
+        if "Запись..." in message:
+            self.operation_started = time.perf_counter()
+            return
         if "Распознано:" in message:
-            self.console.print(f"[bold white]>[/] {message}")
+            self.console.print(f"[bold white]>[/] {message.split(':', 1)[-1].strip()}")
         elif "Скажу:" in message:
             self.console.print(f"[{theme.DISPATCHER}] диспетчер: {message.split(':', 1)[-1].strip()}")
+            self._set_status("● Думаю…")
         elif "Задача:" in message or "Исполнитель работает" in message:
-            self.console.print(f"[{theme.EXECUTOR}] исполнитель: {message}")
+            if self.details:
+                self.console.print(f"[{theme.EXECUTOR}] исполнитель: {message}", style=theme.MUTED)
+            self._set_status("● Выполняю…")
         elif "Ошибка" in message or "ошибка" in message:
             self.console.print(f"[{theme.FAIL}] {message}")
+            self._set_status("● Ошибка")
         elif "Файл сохранён" in message or "Диспетчер готов" in message:
-            self.console.print(f"[{theme.OK}] {message}", style=theme.SUCCESS)
+            if "Файл сохранён" in message:
+                elapsed = time.perf_counter() - self.operation_started if self.operation_started else 0
+                self.console.print(f"[{theme.OK}] готово ({elapsed:.1f} с)", style=theme.SUCCESS)
+                self._set_status("● Слушаю…")
+            elif self.details:
+                self.console.print(message, style=theme.MUTED)
         else:
-            self.console.print(message, style=theme.MUTED)
+            if self.details:
+                self.console.print(message, style=theme.MUTED)
+
+    def _set_status(self, value: str) -> None:
+        self.console.print(value, style=theme.MUTED)
 
     def _models_menu(self):
         choices = [("dispatcher", "Диспетчер\n  Модель понимания команд"), ("executor", "Исполнитель\n  Модель генерации файлов")]
@@ -109,11 +126,25 @@ class ConsoleUI:
 
     def _command(self, value):
         command = value.strip().lower()
-        if command == "/выход": return False
+        if command in {"/выход", "/exit"}: return False
+        if command == "/детали":
+            self.details = not self.details
+            state = "показаны" if self.details else "скрыты"
+            self.console.print(f"Детали: {state}", style=theme.MUTED)
+            return True
         if command == "/модели": self._models_menu()
-        elif command in {"/настройки", "/лог"}: self.console.print(f"{command}: скоро", style=theme.MUTED)
+        elif command == "/лог": self._show_log()
+        elif command == "/настройки": self.console.print("/настройки: скоро", style=theme.MUTED)
         else: self.console.print(f"{theme.FAIL} Неизвестная команда: {value}", style=theme.ERROR)
         return True
+
+    def _show_log(self):
+        log_path = ROOT / "logs" / f"{datetime.now():%Y-%m-%d}.log"
+        if not log_path.exists():
+            self.console.print("Лог пуст", style=theme.MUTED)
+            return
+        lines = log_path.read_text(encoding="utf-8", errors="replace").splitlines()[-30:]
+        self.console.print("\n".join(lines) if lines else "Лог пуст", style=theme.MUTED)
 
     def _process_text(self, text):
         try:
@@ -132,25 +163,33 @@ class ConsoleUI:
             if result is None:
                 self.console.print(f"{theme.FAIL} ошибка: диспетчер не вернул результат", style=theme.ERROR); return
             task = result.get("task", "")
-            self.console.print(f"{theme.EXECUTOR} исполнитель: {task or 'нет задачи'}")
+            if self.details:
+                self.console.print(f"{theme.EXECUTOR} исполнитель: {task or 'нет задачи'}", style=theme.MUTED)
             if task:
                 result = execute(task, text, self.config.get("executor", {}), ROOT)
                 if result["status"] == "ok":
-                    self.console.print(f"{theme.OK} готово: {result['summary']}", style=theme.SUCCESS); speech.speak(result["summary"])
+                    elapsed = time.perf_counter() - started
+                    self.console.print(f"{theme.EXECUTOR} исполнитель: {result['summary']}")
+                    self.console.print(f"{theme.OK} {elapsed:.1f} с", style=theme.SUCCESS); speech.speak(result["summary"])
                 else:
                     self.console.print(f"{theme.FAIL} ошибка: {result['details']}", style=theme.ERROR); speech.speak(result["summary"])
+            else:
+                self.console.print(f"{theme.OK} {time.perf_counter() - started:.1f} с", style=theme.SUCCESS)
         except Exception as error:
             self.console.print(f"{theme.FAIL} ошибка: {error}", style=theme.ERROR)
 
     def run(self):
-        self.header(); self.start_voice()
-        session = PromptSession(completer=WordCompleter(["/модели", "/настройки", "/лог", "/выход"], ignore_case=True))
+        self.header()
+        self.console.print("Запуск… ", end="")
+        self.start_voice()
+        self.console.print("✓ готов", style=theme.SUCCESS)
+        self.console.print("F9 запись · /детали · /лог · /модели · Esc выход", style=theme.MUTED)
+        session = PromptSession(completer=WordCompleter(["/модели", "/настройки", "/лог", "/детали", "/выход"], ignore_case=True))
         try:
-            while not self.stop_event.is_set():
-                self._drain_voice()
+            with patch_stdout(raw=True):
+              while not self.stop_event.is_set():
                 try: value = session.prompt(HTML("<ansigreen>></ansigreen> "))
                 except (EOFError, KeyboardInterrupt): break
-                self._drain_voice()
                 if not value.strip(): continue
                 if value.lstrip().startswith("/"):
                     if not self._command(value): break
