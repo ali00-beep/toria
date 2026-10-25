@@ -57,23 +57,657 @@
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 30
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 1
+      },
+      {
+        "char": "-",
+        "brightness": 115
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 254
+      },
+      {
+        "char": "-",
+        "brightness": 100
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 47
+      },
+      {
+        "char": ".",
+        "brightness": 43
+      },
+      {
+        "char": ".",
+        "brightness": 43
+      },
+      {
+        "char": ".",
+        "brightness": 47
+      },
+      {
+        "char": " ",
+        "brightness": 15
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ".",
+        "brightness": 50
+      },
+      {
+        "char": "=",
+        "brightness": 150
+      },
+      {
+        "char": "*",
+        "brightness": 209
+      },
+      {
+        "char": "*",
+        "brightness": 219
+      },
+      {
+        "char": "#",
+        "brightness": 254
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 243
+      },
+      {
+        "char": " ",
+        "brightness": 30
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": "+",
+        "brightness": 186
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "=",
+        "brightness": 134
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 9
+      },
+      {
+        "char": ":",
+        "brightness": 66
+      },
+      {
+        "char": "-",
+        "brightness": 113
+      },
+      {
+        "char": "-",
+        "brightness": 127
+      },
+      {
+        "char": "=",
+        "brightness": 139
+      },
+      {
+        "char": "+",
+        "brightness": 171
+      },
+      {
+        "char": "*",
+        "brightness": 202
+      },
+      {
+        "char": "+",
+        "brightness": 185
+      },
+      {
+        "char": "-",
+        "brightness": 96
       },
       {
         "char": " ",
@@ -101,7 +735,481 @@
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": "=",
+        "brightness": 131
+      },
+      {
+        "char": "*",
+        "brightness": 209
+      },
+      {
+        "char": "*",
+        "brightness": 193
+      },
+      {
+        "char": "*",
+        "brightness": 193
+      },
+      {
+        "char": "*",
+        "brightness": 212
+      },
+      {
+        "char": ":",
+        "brightness": 93
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 14
+      },
+      {
+        "char": ".",
+        "brightness": 43
+      },
+      {
+        "char": ".",
+        "brightness": 57
+      },
+      {
+        "char": ":",
+        "brightness": 66
+      },
+      {
+        "char": ":",
+        "brightness": 85
+      },
+      {
+        "char": "-",
+        "brightness": 112
+      },
+      {
+        "char": "-",
+        "brightness": 117
+      },
+      {
+        "char": ".",
+        "brightness": 62
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ":",
+        "brightness": 88
+      },
+      {
+        "char": "=",
+        "brightness": 143
+      },
+      {
+        "char": "=",
+        "brightness": 132
+      },
+      {
+        "char": "=",
+        "brightness": 132
+      },
+      {
+        "char": "=",
+        "brightness": 146
+      },
+      {
+        "char": ".",
+        "brightness": 61
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 1
+      },
+      {
+        "char": " ",
+        "brightness": 8
+      },
+      {
+        "char": " ",
+        "brightness": 15
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 42
+      },
+      {
+        "char": ".",
+        "brightness": 54
+      },
+      {
+        "char": ".",
+        "brightness": 35
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 1
+      },
+      {
+        "char": " ",
+        "brightness": 7
+      },
+      {
+        "char": " ",
+        "brightness": 14
+      },
+      {
+        "char": " ",
+        "brightness": 20
+      },
+      {
+        "char": " ",
+        "brightness": 27
+      },
+      {
+        "char": ".",
+        "brightness": 35
+      },
+      {
+        "char": ".",
+        "brightness": 47
+      },
+      {
+        "char": ".",
+        "brightness": 47
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
       },
       {
         "char": " ",
@@ -113,7 +1221,217 @@
       },
       {
         "char": ".",
+        "brightness": 53
+      },
+      {
+        "char": ":",
+        "brightness": 89
+      },
+      {
+        "char": ":",
+        "brightness": 81
+      },
+      {
+        "char": ":",
+        "brightness": 81
+      },
+      {
+        "char": ":",
+        "brightness": 90
+      },
+      {
+        "char": ".",
         "brightness": 34
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 8
+      },
+      {
+        "char": " ",
+        "brightness": 7
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 8
+      },
+      {
+        "char": " ",
+        "brightness": 23
+      },
+      {
+        "char": ".",
+        "brightness": 42
+      },
+      {
+        "char": ":",
+        "brightness": 65
+      },
+      {
+        "char": ":",
+        "brightness": 89
+      },
+      {
+        "char": "-",
+        "brightness": 117
+      },
+      {
+        "char": "=",
+        "brightness": 150
+      },
+      {
+        "char": "+",
+        "brightness": 185
+      },
+      {
+        "char": "*",
+        "brightness": 221
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 23
+      },
+      {
+        "char": ".",
+        "brightness": 45
+      },
+      {
+        "char": ".",
+        "brightness": 40
+      },
+      {
+        "char": ".",
+        "brightness": 40
+      },
+      {
+        "char": ".",
+        "brightness": 45
       },
       {
         "char": " ",
@@ -125,14 +1443,6 @@
       },
       {
         "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
         "brightness": 0
       },
       {
@@ -177,193 +1487,47 @@
       },
       {
         "char": " ",
-        "brightness": 0
+        "brightness": 9
       },
       {
         "char": " ",
-        "brightness": 0
+        "brightness": 26
       },
       {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": "-",
-        "brightness": 97
-      },
-      {
-        "char": "*",
-        "brightness": 205
-      },
-      {
-        "char": "*",
-        "brightness": 200
+        "char": ".",
+        "brightness": 45
       },
       {
         "char": ":",
-        "brightness": 86
+        "brightness": 68
       },
       {
-        "char": " ",
-        "brightness": 0
+        "char": ":",
+        "brightness": 94
       },
       {
-        "char": " ",
-        "brightness": 0
+        "char": "-",
+        "brightness": 124
       },
       {
-        "char": " ",
-        "brightness": 1
+        "char": "=",
+        "brightness": 157
       },
       {
-        "char": " ",
-        "brightness": 0
+        "char": "*",
+        "brightness": 193
       },
       {
-        "char": " ",
-        "brightness": 0
+        "char": "#",
+        "brightness": 231
       },
       {
-        "char": " ",
-        "brightness": 0
+        "char": "%",
+        "brightness": 255
       },
       {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
+        "char": "%",
+        "brightness": 255
       },
       {
         "char": " ",
@@ -434,46 +1598,6 @@
       {
         "char": " ",
         "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 47
-      },
-      {
-        "char": ".",
-        "brightness": 44
-      },
-      {
-        "char": ".",
-        "brightness": 44
-      },
-      {
-        "char": ".",
-        "brightness": 47
-      },
-      {
-        "char": " ",
-        "brightness": 23
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
       },
       {
         "char": " ",
@@ -488,12 +1612,1430 @@
         "brightness": 4
       },
       {
+        "char": " ",
+        "brightness": 14
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": " ",
+        "brightness": 9
+      },
+      {
+        "char": " ",
+        "brightness": 12
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 9
+      },
+      {
+        "char": " ",
+        "brightness": 22
+      },
+      {
+        "char": ".",
+        "brightness": 36
+      },
+      {
+        "char": ".",
+        "brightness": 51
+      },
+      {
+        "char": ":",
+        "brightness": 72
+      },
+      {
+        "char": ":",
+        "brightness": 93
+      },
+      {
+        "char": "-",
+        "brightness": 115
+      },
+      {
+        "char": "=",
+        "brightness": 138
+      },
+      {
+        "char": "+",
+        "brightness": 173
+      },
+      {
+        "char": "+",
+        "brightness": 171
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 14
+      },
+      {
+        "char": " ",
+        "brightness": 24
+      },
+      {
+        "char": " ",
+        "brightness": 24
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 32
+      },
+      {
+        "char": ".",
+        "brightness": 46
+      },
+      {
+        "char": ":",
+        "brightness": 66
+      },
+      {
+        "char": ":",
+        "brightness": 82
+      },
+      {
+        "char": ".",
+        "brightness": 59
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 8
+      },
+      {
+        "char": " ",
+        "brightness": 20
+      },
+      {
+        "char": " ",
+        "brightness": 27
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 24
+      },
+      {
+        "char": ":",
+        "brightness": 65
+      },
+      {
+        "char": ":",
+        "brightness": 85
+      },
+      {
+        "char": ":",
+        "brightness": 93
+      },
+      {
+        "char": "-",
+        "brightness": 115
+      },
+      {
+        "char": "=",
+        "brightness": 146
+      },
+      {
+        "char": "=",
+        "brightness": 157
+      },
+      {
+        "char": ":",
+        "brightness": 94
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 8
+      },
+      {
+        "char": " ",
+        "brightness": 24
+      },
+      {
+        "char": " ",
+        "brightness": 28
+      },
+      {
+        "char": ".",
+        "brightness": 38
+      },
+      {
+        "char": ".",
+        "brightness": 57
+      },
+      {
+        "char": ":",
+        "brightness": 76
+      },
+      {
+        "char": ":",
+        "brightness": 72
+      },
+      {
+        "char": " ",
+        "brightness": 23
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": ":",
+        "brightness": 81
+      },
+      {
+        "char": "=",
+        "brightness": 146
+      },
+      {
+        "char": "+",
+        "brightness": 166
+      },
+      {
+        "char": "+",
+        "brightness": 176
+      },
+      {
+        "char": "*",
+        "brightness": 205
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": ":",
+        "brightness": 92
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ".",
+        "brightness": 50
+      },
+      {
+        "char": ":",
+        "brightness": 78
+      },
+      {
+        "char": ":",
+        "brightness": 86
+      },
+      {
+        "char": "-",
+        "brightness": 103
+      },
+      {
+        "char": "=",
+        "brightness": 131
+      },
+      {
+        "char": "=",
+        "brightness": 155
+      },
+      {
+        "char": "-",
+        "brightness": 124
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ".",
+        "brightness": 47
+      },
+      {
+        "char": "+",
+        "brightness": 169
+      },
+      {
+        "char": "#",
+        "brightness": 248
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "=",
+        "brightness": 157
+      },
+      {
+        "char": " ",
+        "brightness": 20
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 30
+      },
+      {
+        "char": "=",
+        "brightness": 150
+      },
+      {
+        "char": "=",
+        "brightness": 140
+      },
+      {
+        "char": "=",
+        "brightness": 142
+      },
+      {
+        "char": "=",
+        "brightness": 147
+      },
+      {
+        "char": "-",
+        "brightness": 122
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ".",
+        "brightness": 51
+      },
+      {
+        "char": "-",
+        "brightness": 126
+      },
+      {
+        "char": "=",
+        "brightness": 159
+      },
+      {
+        "char": "+",
+        "brightness": 166
+      },
+      {
+        "char": "+",
+        "brightness": 189
+      },
+      {
+        "char": "#",
+        "brightness": 228
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "+",
+        "brightness": 177
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 1
+      },
+      {
+        "char": "=",
+        "brightness": 134
+      },
+      {
+        "char": "*",
+        "brightness": 202
+      },
+      {
+        "char": ".",
+        "brightness": 51
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 32
+      },
+      {
+        "char": ".",
+        "brightness": 46
+      },
+      {
+        "char": ".",
+        "brightness": 32
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ":",
+        "brightness": 68
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 238
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 18
+      },
+      {
+        "char": "-",
+        "brightness": 124
+      },
+      {
+        "char": "#",
+        "brightness": 230
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 234
+      },
+      {
+        "char": ":",
+        "brightness": 89
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 14
+      },
+      {
+        "char": " ",
+        "brightness": 24
+      },
+      {
+        "char": " ",
+        "brightness": 28
+      },
+      {
         "char": ".",
         "brightness": 49
       },
       {
+        "char": ":",
+        "brightness": 84
+      },
+      {
         "char": "-",
-        "brightness": 123
+        "brightness": 127
+      },
+      {
+        "char": "=",
+        "brightness": 157
+      },
+      {
+        "char": "+",
+        "brightness": 190
+      },
+      {
+        "char": "#",
+        "brightness": 225
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 224
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 11
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ".",
+        "brightness": 39
+      },
+      {
+        "char": "+",
+        "brightness": 178
+      },
+      {
+        "char": "+",
+        "brightness": 166
       },
       {
         "char": "+",
@@ -504,254 +3046,8 @@
         "brightness": 174
       },
       {
-        "char": "*",
-        "brightness": 200
-      },
-      {
-        "char": "#",
-        "brightness": 241
-      },
-      {
-        "char": "*",
-        "brightness": 192
-      },
-      {
-        "char": ".",
-        "brightness": 34
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
         "char": "=",
-        "brightness": 150
-      },
-      {
-        "char": "#",
-        "brightness": 229
-      },
-      {
-        "char": "*",
-        "brightness": 214
-      },
-      {
-        "char": "*",
-        "brightness": 213
-      },
-      {
-        "char": "#",
-        "brightness": 232
-      },
-      {
-        "char": "-",
-        "brightness": 111
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 19
-      },
-      {
-        "char": ".",
-        "brightness": 61
-      },
-      {
-        "char": "-",
-        "brightness": 96
-      },
-      {
-        "char": "-",
-        "brightness": 106
-      },
-      {
-        "char": "-",
-        "brightness": 115
-      },
-      {
-        "char": "=",
-        "brightness": 139
-      },
-      {
-        "char": "+",
-        "brightness": 162
-      },
-      {
-        "char": "=",
-        "brightness": 149
-      },
-      {
-        "char": ":",
-        "brightness": 83
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
+        "brightness": 147
       },
       {
         "char": " ",
@@ -768,180 +3064,18 @@
       {
         "char": " ",
         "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": "-",
-        "brightness": 109
-      },
-      {
-        "char": "+",
-        "brightness": 167
-      },
-      {
-        "char": "=",
-        "brightness": 155
-      },
-      {
-        "char": "=",
-        "brightness": 155
-      },
-      {
-        "char": "+",
-        "brightness": 169
-      },
-      {
-        "char": ":",
-        "brightness": 81
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": ".",
-        "brightness": 44
-      },
-      {
-        "char": ".",
-        "brightness": 54
-      },
-      {
-        "char": ".",
-        "brightness": 61
-      },
-      {
-        "char": ":",
-        "brightness": 75
-      },
-      {
-        "char": ":",
-        "brightness": 95
-      },
-      {
-        "char": "-",
-        "brightness": 99
       },
       {
         "char": ".",
         "brightness": 58
       },
       {
-        "char": " ",
-        "brightness": 2
+        "char": "*",
+        "brightness": 208
       },
       {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
+        "char": "-",
+        "brightness": 105
       },
       {
         "char": " ",
@@ -1019,11 +3153,15 @@
       },
       {
         "char": " ",
-        "brightness": 1
+        "brightness": 12
       },
       {
         "char": " ",
-        "brightness": 0
+        "brightness": 30
+      },
+      {
+        "char": ".",
+        "brightness": 53
       },
       {
         "char": ":",
@@ -1031,2375 +3169,15 @@
       },
       {
         "char": "-",
-        "brightness": 118
-      },
-      {
-        "char": "-",
-        "brightness": 110
-      },
-      {
-        "char": "-",
-        "brightness": 110
-      },
-      {
-        "char": "-",
-        "brightness": 120
-      },
-      {
-        "char": ".",
-        "brightness": 57
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": " ",
-        "brightness": 18
-      },
-      {
-        "char": " ",
-        "brightness": 23
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 43
-      },
-      {
-        "char": ".",
-        "brightness": 52
-      },
-      {
-        "char": ".",
-        "brightness": 38
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 10
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": " ",
-        "brightness": 17
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": " ",
-        "brightness": 27
-      },
-      {
-        "char": ".",
-        "brightness": 32
-      },
-      {
-        "char": ".",
-        "brightness": 38
-      },
-      {
-        "char": ".",
-        "brightness": 47
-      },
-      {
-        "char": ".",
-        "brightness": 47
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ".",
-        "brightness": 51
-      },
-      {
-        "char": ":",
-        "brightness": 78
-      },
-      {
-        "char": ":",
-        "brightness": 72
-      },
-      {
-        "char": ":",
-        "brightness": 72
-      },
-      {
-        "char": ":",
-        "brightness": 79
-      },
-      {
-        "char": ".",
-        "brightness": 37
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 11
-      },
-      {
-        "char": " ",
-        "brightness": 18
-      },
-      {
-        "char": " ",
-        "brightness": 17
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 9
-      },
-      {
-        "char": " ",
-        "brightness": 18
-      },
-      {
-        "char": " ",
-        "brightness": 29
-      },
-      {
-        "char": ".",
-        "brightness": 43
-      },
-      {
-        "char": ".",
-        "brightness": 60
-      },
-      {
-        "char": ":",
-        "brightness": 78
-      },
-      {
-        "char": "-",
-        "brightness": 99
-      },
-      {
-        "char": "-",
-        "brightness": 123
-      },
-      {
-        "char": "=",
-        "brightness": 149
-      },
-      {
-        "char": "+",
-        "brightness": 176
-      },
-      {
-        "char": "*",
-        "brightness": 215
-      },
-      {
-        "char": "*",
-        "brightness": 213
-      },
-      {
-        "char": " ",
-        "brightness": 8
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 29
-      },
-      {
-        "char": ".",
-        "brightness": 45
-      },
-      {
-        "char": ".",
-        "brightness": 42
-      },
-      {
-        "char": ".",
-        "brightness": 42
-      },
-      {
-        "char": ".",
-        "brightness": 45
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 10
-      },
-      {
-        "char": " ",
-        "brightness": 19
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 45
-      },
-      {
-        "char": ".",
-        "brightness": 62
-      },
-      {
-        "char": ":",
-        "brightness": 82
-      },
-      {
-        "char": "-",
-        "brightness": 104
-      },
-      {
-        "char": "=",
-        "brightness": 128
-      },
-      {
-        "char": "=",
-        "brightness": 155
-      },
-      {
-        "char": "+",
-        "brightness": 183
-      },
-      {
-        "char": "#",
-        "brightness": 224
-      },
-      {
-        "char": "*",
-        "brightness": 222
-      },
-      {
-        "char": " ",
-        "brightness": 8
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 8
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 15
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": " ",
-        "brightness": 19
-      },
-      {
-        "char": " ",
-        "brightness": 21
-      },
-      {
-        "char": " ",
-        "brightness": 10
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 12
-      },
-      {
-        "char": " ",
-        "brightness": 19
-      },
-      {
-        "char": " ",
-        "brightness": 28
-      },
-      {
-        "char": ".",
-        "brightness": 39
-      },
-      {
-        "char": ".",
-        "brightness": 50
-      },
-      {
-        "char": ":",
-        "brightness": 65
-      },
-      {
-        "char": ":",
-        "brightness": 81
-      },
-      {
-        "char": "-",
-        "brightness": 97
-      },
-      {
-        "char": "-",
-        "brightness": 114
-      },
-      {
-        "char": "=",
-        "brightness": 140
-      },
-      {
-        "char": "=",
-        "brightness": 139
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 9
-      },
-      {
-        "char": " ",
-        "brightness": 14
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": " ",
-        "brightness": 11
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 5
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 36
-      },
-      {
-        "char": ".",
-        "brightness": 46
-      },
-      {
-        "char": ".",
-        "brightness": 61
-      },
-      {
-        "char": ":",
-        "brightness": 73
-      },
-      {
-        "char": ".",
-        "brightness": 56
-      },
-      {
-        "char": " ",
-        "brightness": 14
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 11
-      },
-      {
-        "char": " ",
-        "brightness": 18
-      },
-      {
-        "char": " ",
-        "brightness": 27
-      },
-      {
-        "char": ".",
-        "brightness": 32
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": ".",
-        "brightness": 60
-      },
-      {
-        "char": ":",
-        "brightness": 75
-      },
-      {
-        "char": ":",
-        "brightness": 81
-      },
-      {
-        "char": "-",
-        "brightness": 97
-      },
-      {
-        "char": "-",
-        "brightness": 120
-      },
-      {
-        "char": "=",
-        "brightness": 128
-      },
-      {
-        "char": ":",
-        "brightness": 82
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 18
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": ".",
-        "brightness": 33
-      },
-      {
-        "char": ".",
-        "brightness": 40
-      },
-      {
-        "char": ".",
-        "brightness": 54
-      },
-      {
-        "char": ":",
-        "brightness": 68
-      },
-      {
-        "char": ":",
-        "brightness": 65
-      },
-      {
-        "char": " ",
-        "brightness": 29
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": ":",
-        "brightness": 72
-      },
-      {
-        "char": "-",
-        "brightness": 120
-      },
-      {
-        "char": "=",
-        "brightness": 135
-      },
-      {
-        "char": "=",
-        "brightness": 142
-      },
-      {
-        "char": "+",
-        "brightness": 164
-      },
-      {
-        "char": "*",
-        "brightness": 201
-      },
-      {
-        "char": "*",
-        "brightness": 212
-      },
-      {
-        "char": ":",
-        "brightness": 80
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": ".",
-        "brightness": 49
-      },
-      {
-        "char": ":",
-        "brightness": 70
-      },
-      {
-        "char": ":",
-        "brightness": 76
-      },
-      {
-        "char": ":",
-        "brightness": 88
-      },
-      {
-        "char": "-",
-        "brightness": 109
-      },
-      {
-        "char": "-",
-        "brightness": 127
-      },
-      {
-        "char": "-",
-        "brightness": 104
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ".",
-        "brightness": 47
-      },
-      {
-        "char": "=",
-        "brightness": 137
-      },
-      {
-        "char": "*",
-        "brightness": 196
-      },
-      {
-        "char": "*",
-        "brightness": 220
-      },
-      {
-        "char": "*",
-        "brightness": 215
-      },
-      {
-        "char": "=",
-        "brightness": 128
-      },
-      {
-        "char": " ",
-        "brightness": 27
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ".",
-        "brightness": 34
-      },
-      {
-        "char": "-",
-        "brightness": 123
-      },
-      {
-        "char": "-",
-        "brightness": 116
-      },
-      {
-        "char": "-",
-        "brightness": 117
-      },
-      {
-        "char": "-",
-        "brightness": 121
-      },
-      {
-        "char": "-",
-        "brightness": 102
-      },
-      {
-        "char": " ",
-        "brightness": 10
-      },
-      {
-        "char": ".",
-        "brightness": 50
-      },
-      {
-        "char": "-",
-        "brightness": 105
+        "brightness": 101
       },
       {
         "char": "=",
         "brightness": 130
       },
       {
-        "char": "=",
-        "brightness": 135
-      },
-      {
-        "char": "=",
-        "brightness": 152
-      },
-      {
         "char": "+",
-        "brightness": 181
-      },
-      {
-        "char": "*",
-        "brightness": 214
-      },
-      {
-        "char": "=",
-        "brightness": 143
-      },
-      {
-        "char": " ",
-        "brightness": 11
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": "-",
-        "brightness": 111
-      },
-      {
-        "char": "+",
-        "brightness": 162
-      },
-      {
-        "char": ".",
-        "brightness": 50
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 36
-      },
-      {
-        "char": ".",
-        "brightness": 46
-      },
-      {
-        "char": ".",
-        "brightness": 36
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": ".",
-        "brightness": 62
-      },
-      {
-        "char": "*",
-        "brightness": 223
-      },
-      {
-        "char": "*",
-        "brightness": 210
-      },
-      {
-        "char": "*",
-        "brightness": 211
-      },
-      {
-        "char": "*",
-        "brightness": 219
-      },
-      {
-        "char": "+",
-        "brightness": 188
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 25
-      },
-      {
-        "char": "-",
-        "brightness": 104
-      },
-      {
-        "char": "+",
-        "brightness": 182
-      },
-      {
-        "char": "*",
-        "brightness": 209
-      },
-      {
-        "char": "#",
-        "brightness": 230
-      },
-      {
-        "char": "+",
-        "brightness": 185
-      },
-      {
-        "char": ":",
-        "brightness": 78
-      },
-      {
-        "char": " ",
-        "brightness": 6
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 11
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": ".",
-        "brightness": 33
-      },
-      {
-        "char": ".",
-        "brightness": 48
-      },
-      {
-        "char": ":",
-        "brightness": 74
-      },
-      {
-        "char": "-",
-        "brightness": 106
-      },
-      {
-        "char": "=",
-        "brightness": 128
-      },
-      {
-        "char": "=",
-        "brightness": 153
-      },
-      {
-        "char": "+",
-        "brightness": 179
-      },
-      {
-        "char": "#",
-        "brightness": 227
-      },
-      {
-        "char": "+",
-        "brightness": 178
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 20
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ".",
-        "brightness": 41
-      },
-      {
-        "char": "=",
-        "brightness": 144
-      },
-      {
-        "char": "=",
-        "brightness": 135
-      },
-      {
-        "char": "=",
-        "brightness": 136
-      },
-      {
-        "char": "=",
-        "brightness": 141
-      },
-      {
-        "char": "-",
-        "brightness": 121
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ".",
-        "brightness": 55
-      },
-      {
-        "char": "+",
-        "brightness": 166
-      },
-      {
-        "char": ":",
-        "brightness": 90
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 4
-      },
-      {
-        "char": " ",
-        "brightness": 12
-      },
-      {
-        "char": " ",
-        "brightness": 21
-      },
-      {
-        "char": ".",
-        "brightness": 34
-      },
-      {
-        "char": ".",
-        "brightness": 51
-      },
-      {
-        "char": ":",
-        "brightness": 69
-      },
-      {
-        "char": ":",
-        "brightness": 87
-      },
-      {
-        "char": "-",
-        "brightness": 108
-      },
-      {
-        "char": "=",
-        "brightness": 133
-      },
-      {
-        "char": "+",
-        "brightness": 161
-      },
-      {
-        "char": "+",
-        "brightness": 187
-      },
-      {
-        "char": "#",
-        "brightness": 239
-      },
-      {
-        "char": "+",
-        "brightness": 184
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": ":",
-        "brightness": 76
-      },
-      {
-        "char": "*",
-        "brightness": 207
-      },
-      {
-        "char": "+",
-        "brightness": 185
-      },
-      {
-        "char": ":",
-        "brightness": 92
-      },
-      {
-        "char": " ",
-        "brightness": 8
-      },
-      {
-        "char": " ",
-        "brightness": 22
-      },
-      {
-        "char": "-",
-        "brightness": 104
-      },
-      {
-        "char": "-",
-        "brightness": 97
-      },
-      {
-        "char": "-",
-        "brightness": 97
-      },
-      {
-        "char": "-",
-        "brightness": 101
-      },
-      {
-        "char": ":",
-        "brightness": 86
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 7
-      },
-      {
-        "char": " ",
-        "brightness": 14
-      },
-      {
-        "char": " ",
-        "brightness": 21
-      },
-      {
-        "char": " ",
-        "brightness": 31
-      },
-      {
-        "char": ".",
-        "brightness": 42
-      },
-      {
-        "char": ".",
-        "brightness": 55
-      },
-      {
-        "char": ":",
-        "brightness": 70
-      },
-      {
-        "char": ":",
-        "brightness": 86
-      },
-      {
-        "char": "-",
-        "brightness": 104
-      },
-      {
-        "char": "-",
-        "brightness": 121
-      },
-      {
-        "char": "=",
-        "brightness": 151
-      },
-      {
-        "char": "-",
-        "brightness": 126
-      },
-      {
-        "char": ":",
-        "brightness": 84
-      },
-      {
-        "char": "+",
-        "brightness": 170
-      },
-      {
-        "char": "+",
-        "brightness": 178
+        "brightness": 163
       },
       {
         "char": "*",
@@ -3407,39 +3185,35 @@
       },
       {
         "char": "#",
-        "brightness": 230
+        "brightness": 236
       },
       {
-        "char": "*",
-        "brightness": 213
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "#",
+        "brightness": 232
+      },
+      {
+        "char": " ",
+        "brightness": 0
       },
       {
         "char": ":",
-        "brightness": 83
+        "brightness": 86
       },
       {
-        "char": ".",
-        "brightness": 56
+        "char": "%",
+        "brightness": 255
       },
       {
-        "char": ".",
-        "brightness": 63
+        "char": "#",
+        "brightness": 234
       },
       {
-        "char": ".",
-        "brightness": 61
-      },
-      {
-        "char": ":",
-        "brightness": 64
-      },
-      {
-        "char": ".",
-        "brightness": 55
-      },
-      {
-        "char": " ",
-        "brightness": 2
+        "char": "-",
+        "brightness": 108
       },
       {
         "char": " ",
@@ -3447,141 +3221,11 @@
       },
       {
         "char": " ",
-        "brightness": 0
+        "brightness": 14
       },
       {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      }
-    ],
-    [
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 9
-      },
-      {
-        "char": ":",
-        "brightness": 72
+        "char": "-",
+        "brightness": 124
       },
       {
         "char": "-",
@@ -3589,51 +3233,19 @@
       },
       {
         "char": "-",
-        "brightness": 116
-      },
-      {
-        "char": "=",
-        "brightness": 132
-      },
-      {
-        "char": "=",
-        "brightness": 153
-      },
-      {
-        "char": "+",
-        "brightness": 166
+        "brightness": 115
       },
       {
         "char": "-",
-        "brightness": 97
+        "brightness": 120
+      },
+      {
+        "char": "-",
+        "brightness": 100
       },
       {
         "char": " ",
-        "brightness": 21
-      },
-      {
-        "char": ".",
-        "brightness": 34
-      },
-      {
-        "char": ".",
-        "brightness": 34
-      },
-      {
-        "char": ".",
-        "brightness": 33
-      },
-      {
-        "char": ".",
-        "brightness": 35
-      },
-      {
-        "char": " ",
-        "brightness": 30
-      },
-      {
-        "char": " ",
-        "brightness": 1
+        "brightness": 0
       },
       {
         "char": " ",
@@ -3735,91 +3347,7 @@
       },
       {
         "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
         "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 25
-      },
-      {
-        "char": ".",
-        "brightness": 59
-      },
-      {
-        "char": ":",
-        "brightness": 68
-      },
-      {
-        "char": ":",
-        "brightness": 72
-      },
-      {
-        "char": ":",
-        "brightness": 87
-      },
-      {
-        "char": "-",
-        "brightness": 106
-      },
-      {
-        "char": "-",
-        "brightness": 98
-      },
-      {
-        "char": " ",
-        "brightness": 29
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 15
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": " ",
-        "brightness": 14
-      },
-      {
-        "char": " ",
-        "brightness": 14
       },
       {
         "char": " ",
@@ -3827,6 +3355,90 @@
       },
       {
         "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 40
+      },
+      {
+        "char": ".",
+        "brightness": 58
+      },
+      {
+        "char": ":",
+        "brightness": 78
+      },
+      {
+        "char": "-",
+        "brightness": 100
+      },
+      {
+        "char": "-",
+        "brightness": 124
+      },
+      {
+        "char": "=",
+        "brightness": 147
+      },
+      {
+        "char": "+",
+        "brightness": 188
+      },
+      {
+        "char": "=",
+        "brightness": 154
+      },
+      {
+        "char": "-",
+        "brightness": 97
+      },
+      {
+        "char": "*",
+        "brightness": 213
+      },
+      {
+        "char": "#",
+        "brightness": 224
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "%",
+        "brightness": 255
+      },
+      {
+        "char": "-",
+        "brightness": 96
+      },
+      {
+        "char": ".",
+        "brightness": 59
+      },
+      {
+        "char": ":",
+        "brightness": 69
+      },
+      {
+        "char": ":",
+        "brightness": 66
+      },
+      {
+        "char": ":",
+        "brightness": 70
+      },
+      {
+        "char": ".",
+        "brightness": 58
+      },
+      {
+        "char": " ",
         "brightness": 0
       },
       {
@@ -3953,71 +3565,71 @@
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 14
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 27
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": ":",
+        "brightness": 81
+      },
+      {
+        "char": "=",
+        "brightness": 139
+      },
+      {
+        "char": "=",
+        "brightness": 140
+      },
+      {
+        "char": "+",
+        "brightness": 162
+      },
+      {
+        "char": "+",
+        "brightness": 190
+      },
+      {
+        "char": "*",
+        "brightness": 208
+      },
+      {
+        "char": "-",
+        "brightness": 115
+      },
+      {
+        "char": " ",
+        "brightness": 12
+      },
+      {
+        "char": " ",
+        "brightness": 30
+      },
+      {
+        "char": " ",
+        "brightness": 30
+      },
+      {
+        "char": " ",
+        "brightness": 28
       },
       {
         "char": " ",
         "brightness": 31
       },
       {
-        "char": ".",
-        "brightness": 39
-      },
-      {
-        "char": ".",
-        "brightness": 50
-      },
-      {
-        "char": ".",
-        "brightness": 62
-      },
-      {
-        "char": ".",
-        "brightness": 44
-      },
-      {
         "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 3
-      },
-      {
-        "char": " ",
-        "brightness": 1
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
-      },
-      {
-        "char": " ",
-        "brightness": 2
+        "brightness": 24
       },
       {
         "char": " ",
@@ -4147,19 +3759,39 @@
       },
       {
         "char": " ",
-        "brightness": 3
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 7
+        "brightness": 0
       },
       {
         "char": " ",
-        "brightness": 10
+        "brightness": 18
       },
       {
-        "char": " ",
-        "brightness": 16
+        "char": ".",
+        "brightness": 63
+      },
+      {
+        "char": ":",
+        "brightness": 76
+      },
+      {
+        "char": ":",
+        "brightness": 81
+      },
+      {
+        "char": "-",
+        "brightness": 101
+      },
+      {
+        "char": "-",
+        "brightness": 127
+      },
+      {
+        "char": "-",
+        "brightness": 116
       },
       {
         "char": " ",
@@ -4167,23 +3799,197 @@
       },
       {
         "char": " ",
-        "brightness": 27
-      },
-      {
-        "char": " ",
-        "brightness": 13
-      },
-      {
-        "char": " ",
         "brightness": 0
       },
       {
         "char": " ",
         "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 4
       },
       {
         "char": " ",
         "brightness": 1
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 3
+      },
+      {
+        "char": " ",
+        "brightness": 20
+      },
+      {
+        "char": " ",
+        "brightness": 26
+      },
+      {
+        "char": ".",
+        "brightness": 36
+      },
+      {
+        "char": ".",
+        "brightness": 51
+      },
+      {
+        "char": ":",
+        "brightness": 68
+      },
+      {
+        "char": ".",
+        "brightness": 43
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
       },
       {
         "char": " ",
@@ -4349,7 +4155,7 @@
       },
       {
         "char": " ",
-        "brightness": 2
+        "brightness": 0
       },
       {
         "char": " ",
@@ -4357,7 +4163,11 @@
       },
       {
         "char": " ",
-        "brightness": 7
+        "brightness": 15
+      },
+      {
+        "char": " ",
+        "brightness": 20
       },
       {
         "char": " ",
@@ -4366,10 +4176,6 @@
       {
         "char": " ",
         "brightness": 0
-      },
-      {
-        "char": " ",
-        "brightness": 1
       },
       {
         "char": " ",
@@ -4559,7 +4365,201 @@
       },
       {
         "char": " ",
-        "brightness": 1
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      }
+    ],
+    [
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
+      },
+      {
+        "char": " ",
+        "brightness": 0
       },
       {
         "char": " ",
