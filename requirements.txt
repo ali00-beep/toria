@@ -5,3 +5,5 @@ soundfile>=0.12.1,<1
 faster-whisper==1.2.1
 nvidia-cublas-cu12
 nvidia-cudnn-cu12==9.*
+openai>=1.0,<2
+python-dotenv>=1.0,<2

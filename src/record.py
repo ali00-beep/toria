@@ -27,13 +27,17 @@ if os.name == "nt":
             _CUDA_DLL_HANDLES.append(os.add_dll_directory(str(dll_path)))
 
 from faster_whisper import WhisperModel
+try:
+    from dispatcher import dispatch
+except ImportError:
+    from .dispatcher import dispatch
 
 
 ROOT = Path(__file__).resolve().parent.parent
 TARGET_SAMPLE_RATE = 16_000
 
 
-def load_config() -> tuple[str, Path, str, str, int, str]:
+def load_config() -> tuple[str, Path, str, str, int, str, dict]:
     with (ROOT / "config.json").open(encoding="utf-8") as file:
         config = json.load(file)
     hotkey = str(config.get("hotkey", "F9")).upper()
@@ -42,7 +46,8 @@ def load_config() -> tuple[str, Path, str, str, int, str]:
     whisper_device = str(config.get("whisper_device", "cpu")).lower()
     beam_size = int(config.get("beam_size", 5))
     language = str(config.get("language", "ru"))
-    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language
+    dispatcher_config = config.get("dispatcher", {})
+    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language, dispatcher_config
 
 
 def transcribe(
@@ -52,7 +57,7 @@ def transcribe(
     beam_size: int,
     language: str,
     model_cache: dict | None = None,
-) -> None:
+) -> str:
     started_at = time.perf_counter()
     audio, sample_rate = sf.read(audio_file, dtype="float32", always_2d=True)
     if audio.shape[1] > 1:
@@ -92,6 +97,7 @@ def transcribe(
         model_cache["model"] = model
     print(f"Распознано: {text}")
     print(f"Распознавание заняло: {time.perf_counter() - started_at:.1f} секунд")
+    return text
 
 
 def key_from_name(name: str):
@@ -102,7 +108,7 @@ def key_from_name(name: str):
 
 
 def main() -> None:
-    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language = load_config()
+    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, dispatcher_config = load_config()
     hotkey = key_from_name(hotkey_name)
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
@@ -146,7 +152,13 @@ def main() -> None:
                     else:
                         sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
-                    transcribe(output_file, whisper_model, whisper_device, beam_size, language, model_cache)
+                    recognized_text = transcribe(
+                        output_file, whisper_model, whisper_device, beam_size, language, model_cache
+                    )
+                    result = dispatch(recognized_text, dispatcher_config, ROOT)
+                    if result is not None:
+                        print(f"Скажу: {result['say']}")
+                        print(f"Задача: {result['task']}")
                     stop_recording.clear()
                 time.sleep(0.01)
             listener.join()
