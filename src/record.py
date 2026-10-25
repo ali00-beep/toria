@@ -112,7 +112,16 @@ def transcribe(
 
     def run_model(model: WhisperModel) -> str:
         segments, _ = model.transcribe(
-            audio, language=language, beam_size=beam_size, initial_prompt=initial_prompt
+            audio,
+            language=language,
+            beam_size=beam_size,
+            initial_prompt=initial_prompt,
+            vad_filter=True,
+            vad_parameters={"min_silence_duration_ms": 500, "speech_pad_ms": 150},
+            no_speech_threshold=0.6,
+            log_prob_threshold=-1.0,
+            compression_ratio_threshold=2.4,
+            condition_on_previous_text=False,
         )
         return " ".join(segment.text.strip() for segment in segments).strip()
 
@@ -223,6 +232,8 @@ def main() -> None:
     voice_threshold = float(voice_activation.get("voice_threshold", 0.015))
     silence_duration = float(voice_activation.get("silence_duration", 0.8))
     command_timeout = float(voice_activation.get("command_timeout", 8.0))
+    min_voice_duration = float(voice_activation.get("min_voice_duration", 0.25))
+    min_speech_duration = float(voice_activation.get("min_speech_duration", 0.5))
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
     recording = False
@@ -231,6 +242,8 @@ def main() -> None:
     audio_chunks: list = []
     started_at = 0.0
     last_voice_at = 0.0
+    voice_candidate_started_at = 0.0
+    voice_candidate_chunks: list = []
     awaiting_command_until = 0.0
     model_cache: dict = {}
     speech = SpeechManager(tts_config)
@@ -241,7 +254,8 @@ def main() -> None:
     threading.Thread(target=warmup_dispatcher, args=(dispatcher_config,), daemon=True).start()
 
     def on_audio(data, frames, callback_time, status):
-        nonlocal recording, recording_mode, audio_chunks, started_at, last_voice_at, recording_number
+        nonlocal recording, recording_mode, audio_chunks, started_at, last_voice_at
+        nonlocal voice_candidate_started_at, voice_candidate_chunks, recording_number
         if status:
             print(f"Предупреждение аудио: {status}")
         if recording:
@@ -250,19 +264,31 @@ def main() -> None:
                 level = float(np.sqrt(np.mean(np.square(data))))
                 if level >= voice_threshold:
                     last_voice_at = time.monotonic()
-                elif time.monotonic() - last_voice_at >= silence_duration:
+                elif (
+                    time.monotonic() - last_voice_at >= silence_duration
+                    and time.monotonic() - started_at >= min_speech_duration
+                ):
                     stop_recording.set()
         elif always_listen:
             level = float(np.sqrt(np.mean(np.square(data))))
             if level >= voice_threshold:
-                recording = True
-                recording_mode = "voice"
-                recording_number += 1
-                started_at = time.monotonic()
-                audio_chunks = [data.copy()]
-                last_voice_at = started_at
-                stop_recording.clear()
-                print("Слушаю...")
+                now = time.monotonic()
+                if not voice_candidate_chunks:
+                    voice_candidate_started_at = now
+                voice_candidate_chunks.append(data.copy())
+                if now - voice_candidate_started_at >= min_voice_duration:
+                    recording = True
+                    recording_mode = "voice"
+                    recording_number += 1
+                    started_at = voice_candidate_started_at
+                    audio_chunks = voice_candidate_chunks
+                    voice_candidate_chunks = []
+                    last_voice_at = now
+                    stop_recording.clear()
+                    print("Слушаю...")
+            elif voice_candidate_chunks:
+                voice_candidate_chunks = []
+                voice_candidate_started_at = 0.0
 
     def on_press(key):
         nonlocal recording, recording_mode, started_at, audio_chunks, recording_number

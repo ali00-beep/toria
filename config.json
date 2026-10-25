@@ -28,9 +28,11 @@
     "always_listen": true,
     "wake_words": ["тора", "ториа", "тори"],
     "wake_response": "Да, слушаю.",
-    "voice_threshold": 0.015,
+    "voice_threshold": 0.03,
     "silence_duration": 0.8,
-    "command_timeout": 8.0
+    "command_timeout": 8.0,
+    "min_voice_duration": 0.25,
+    "min_speech_duration": 0.5
   },
   "tts": {
     "engine": "edge",
