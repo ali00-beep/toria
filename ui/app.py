@@ -44,6 +44,7 @@ class ConsoleUI:
         self.stop_event = threading.Event()
         self.details = False
         self.operation_started = None
+        self.mic_state = "off"
 
     @staticmethod
     def _load_config():
@@ -130,6 +131,18 @@ class ConsoleUI:
         elif "Ошибка" in message or "ошибка" in message:
             self.console.print(f"[{theme.FAIL}] {message}")
             self._set_status("● Ошибка")
+        elif "Микрофон: включён" in message:
+            self._set_mic_state("on")
+        elif "Микрофон: выключен" in message:
+            self._set_mic_state("off")
+        elif "Предупреждение аудио:" in message:
+            self._set_mic_state("error", message)
+        elif "Распознавание: пусто" in message:
+            self.console.print(f"[{theme.MUTED}] {message}", style=theme.MUTED)
+            self._set_status("● Слушаю…")
+        elif "Слушаю..." in message or "Запись..." in message:
+            self._set_mic_state("on")
+            self._set_status("● Слушаю…")
         elif "Файл сохранён" in message or "Диспетчер готов" in message:
             if "Файл сохранён" in message:
                 elapsed = time.perf_counter() - self.operation_started if self.operation_started else 0
@@ -143,6 +156,17 @@ class ConsoleUI:
 
     def _set_status(self, value: str) -> None:
         self.console.print(value, style=theme.MUTED)
+
+    def _set_mic_state(self, state: str, message: str = "") -> None:
+        if state == self.mic_state and not message:
+            return
+        self.mic_state = state
+        if state == "on":
+            self.console.print("● Микрофон: включён, слушаю", style=theme.SUCCESS)
+        elif state == "error":
+            self.console.print(f"● Микрофон: ошибка{': ' + message.split(':', 1)[-1].strip() if message else ''}", style=theme.ERROR)
+        else:
+            self.console.print("● Микрофон: выключен", style=theme.MUTED)
 
     def _models_menu(self):
         choices = [

@@ -309,6 +309,7 @@ def main() -> None:
             return False
 
     print(f"Удерживайте {hotkey_name} для записи. Для выхода нажмите Esc.")
+    print("Микрофон: включён")
     with sd.InputStream(samplerate=TARGET_SAMPLE_RATE, channels=1, dtype="float32", callback=on_audio):
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
             while listener.is_alive():
@@ -328,6 +329,11 @@ def main() -> None:
                         output_file, whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache
                     )
                     log_event(ROOT, "Распознанная команда", recognized_text)
+
+                    if not recognized_text.strip():
+                        print("Распознавание: пусто, повторите команду")
+                        stop_recording.clear()
+                        continue
 
                     if captured_number != recording_number:
                         print("Предыдущая запись отменена: началась новая запись")
