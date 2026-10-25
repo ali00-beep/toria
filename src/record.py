@@ -158,7 +158,7 @@ def main() -> None:
                     result = dispatch(recognized_text, dispatcher_config, ROOT)
                     if result is not None:
                         print(f"Скажу: {result['say']}")
-                        print(f"Задача: {result['task']}")
+                        print(f"Задача: {result['task'] or 'нет'}")
                     stop_recording.clear()
                 time.sleep(0.01)
             listener.join()

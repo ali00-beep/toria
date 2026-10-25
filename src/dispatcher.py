@@ -7,14 +7,6 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 
-SYSTEM_PROMPT = (
-    "Ты голосовой ассистент на ПК. Отвечай по-русски, максимум 2 коротких предложения. "
-    "Если нужно что-то сделать на компьютере или написать код, поставь в поле task "
-    "описание задачи для исполнителя, а в say скажи коротко, что приступаешь. "
-    "Код и длинные тексты в say не пиши."
-)
-
-
 def parse_response(content: str) -> dict[str, str]:
     cleaned = content.strip()
     if cleaned.startswith("```"):
@@ -30,20 +22,38 @@ def parse_response(content: str) -> dict[str, str]:
         except json.JSONDecodeError as error:
             raise ValueError("ответ содержит некорректный JSON") from error
 
-    if not isinstance(data, dict) or not isinstance(data.get("say"), str) or not isinstance(data.get("task"), str):
-        raise ValueError("JSON должен содержать строковые поля say и task")
-    return {"say": data["say"].strip(), "task": data["task"].strip()}
+    if not isinstance(data, dict):
+        raise ValueError("ответ JSON должен быть объектом")
+
+    say = data.get("say")
+    if not isinstance(say, str) or not say.strip():
+        raise ValueError("поле say должно быть непустой строкой")
+
+    task = data.get("task")
+    normalized_task = task.strip() if isinstance(task, str) and task.strip() else ""
+    return {"say": say.strip(), "task": normalized_task}
 
 
 def dispatch(text: str, config: dict, root: Path) -> dict[str, str] | None:
     load_dotenv(root / ".env")
-    api_key_env = str(config.get("api_key_env", "DISPATCHER_API_KEY"))
+    prompt_path = root / "prompts" / "dispatcher.txt"
+    try:
+        system_prompt = prompt_path.read_text(encoding="utf-8")
+    except OSError as error:
+        print(f"Ошибка диспетчера: не удалось прочитать {prompt_path}: {error}")
+        return None
     import os
 
-    api_key = os.getenv(api_key_env)
+    provider = str(config.get("provider", "")).lower()
+    api_key_env = config.get("api_key_env")
+    api_key = os.getenv(str(api_key_env)) if api_key_env else None
     if not api_key:
-        print(f"Диспетчер не настроен: в .env нет переменной {api_key_env}")
-        return None
+        if provider == "ollama":
+            api_key = "ollama"
+        else:
+            env_name = str(api_key_env or "DISPATCHER_API_KEY")
+            print(f"Диспетчер не настроен: в .env нет переменной {env_name}")
+            return None
 
     model = str(config.get("model", "CHANGE_ME"))
     if model == "CHANGE_ME":
@@ -52,16 +62,24 @@ def dispatch(text: str, config: dict, root: Path) -> dict[str, str] | None:
 
     try:
         client = OpenAI(api_key=api_key, base_url=str(config.get("base_url", "")) or None)
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+        request = {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": text},
             ],
-            temperature=0.2,
-        )
+            "temperature": float(config.get("temperature", 0.2)),
+        }
+        if provider == "ollama":
+            request["response_format"] = {"type": "json_object"}
+        response = client.chat.completions.create(**request)
         content = response.choices[0].message.content or ""
-        return parse_response(content)
+        try:
+            return parse_response(content)
+        except ValueError as error:
+            print(f"Ошибка разбора ответа диспетчера: {error}")
+            print(f"Сырой ответ модели: {content}")
+            return None
     except Exception as error:
         print(f"Ошибка диспетчера: {error}")
         return None

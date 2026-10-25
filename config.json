@@ -6,9 +6,15 @@
   "beam_size": 5,
   "language": "ru",
   "dispatcher": {
-    "provider": "openai",
-    "base_url": "https://api.openai.com/v1",
+    "provider": "ollama",
+    "base_url": "http://localhost:11434/v1",
+    "model": "qwen2.5:7b",
+    "temperature": 0.2
+  },
+  "dispatcher_deepseek": {
+    "provider": "deepseek",
+    "base_url": "https://api.deepseek.com/v1",
     "model": "CHANGE_ME",
-    "api_key_env": "DISPATCHER_API_KEY"
+    "api_key_env": "DEEPSEEK_API_KEY"
   }
 }
