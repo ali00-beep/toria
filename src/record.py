@@ -41,7 +41,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TARGET_SAMPLE_RATE = 16_000
 
 
-def load_config() -> tuple[str, Path, str, str, int, str, dict, dict]:
+def load_config() -> tuple[str, Path, str, str, int, str, str, dict, dict]:
     with (ROOT / "config.json").open(encoding="utf-8") as file:
         config = json.load(file)
     hotkey = str(config.get("hotkey", "F9")).upper()
@@ -50,9 +50,10 @@ def load_config() -> tuple[str, Path, str, str, int, str, dict, dict]:
     whisper_device = str(config.get("whisper_device", "cpu")).lower()
     beam_size = int(config.get("beam_size", 5))
     language = str(config.get("language", "ru"))
+    initial_prompt = str(config.get("initial_prompt", ""))
     dispatcher_config = config.get("dispatcher", {})
     tts_config = config.get("tts", {})
-    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language, dispatcher_config, tts_config
+    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config
 
 
 def transcribe(
@@ -61,6 +62,7 @@ def transcribe(
     device: str,
     beam_size: int,
     language: str,
+    initial_prompt: str,
     model_cache: dict | None = None,
 ) -> str:
     started_at = time.perf_counter()
@@ -79,7 +81,9 @@ def transcribe(
         audio = audio.astype(np.float32, copy=False)
 
     def run_model(model: WhisperModel) -> str:
-        segments, _ = model.transcribe(audio, language=language, beam_size=beam_size)
+        segments, _ = model.transcribe(
+            audio, language=language, beam_size=beam_size, initial_prompt=initial_prompt
+        )
         return " ".join(segment.text.strip() for segment in segments).strip()
 
     if model_cache is None:
@@ -112,19 +116,21 @@ def key_from_name(name: str):
         raise ValueError(f"Неизвестная горячая клавиша: {name}") from error
 
 
-def warmup_whisper(model_name: str, device: str, beam_size: int, language: str, model_cache: dict) -> None:
+def warmup_whisper(
+    model_name: str, device: str, beam_size: int, language: str, initial_prompt: str, model_cache: dict
+) -> None:
     started_at = time.perf_counter()
     compute_type = "float16" if device == "cuda" else "int8"
     try:
         model = WhisperModel(model_name, device=device, compute_type=compute_type)
-        list(model.transcribe(np.zeros(TARGET_SAMPLE_RATE // 10, dtype=np.float32), language=language, beam_size=beam_size)[0])
+        list(model.transcribe(np.zeros(TARGET_SAMPLE_RATE // 10, dtype=np.float32), language=language, beam_size=beam_size, initial_prompt=initial_prompt)[0])
     except RuntimeError as error:
         if device != "cuda" or "cublas64_12.dll" not in str(error).lower():
             print(f"Прогрев Whisper не выполнен: {error}")
             return
         print("GPU недоступен при прогреве, использую CPU")
         model = WhisperModel(model_name, device="cpu", compute_type="int8")
-        list(model.transcribe(np.zeros(TARGET_SAMPLE_RATE // 10, dtype=np.float32), language=language, beam_size=beam_size)[0])
+        list(model.transcribe(np.zeros(TARGET_SAMPLE_RATE // 10, dtype=np.float32), language=language, beam_size=beam_size, initial_prompt=initial_prompt)[0])
     model_cache["model"] = model
     print(f"Whisper прогрет за: {time.perf_counter() - started_at:.1f} секунд")
 
@@ -144,7 +150,7 @@ def warmup_dispatcher(dispatcher_config: dict) -> None:
 
 
 def main() -> None:
-    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, dispatcher_config, tts_config = load_config()
+    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config = load_config()
     hotkey = key_from_name(hotkey_name)
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
@@ -155,7 +161,7 @@ def main() -> None:
     model_cache: dict = {}
     speech = SpeechManager(tts_config)
     print("Прогрев Whisper...")
-    warmup_whisper(whisper_model, whisper_device, beam_size, language, model_cache)
+    warmup_whisper(whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache)
     threading.Thread(target=warmup_dispatcher, args=(dispatcher_config,), daemon=True).start()
 
     def on_audio(data, frames, callback_time, status):
@@ -194,7 +200,7 @@ def main() -> None:
                         sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
                     recognized_text = transcribe(
-                        output_file, whisper_model, whisper_device, beam_size, language, model_cache
+                        output_file, whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache
                     )
                     response_started_at = time.perf_counter()
 

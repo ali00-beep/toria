@@ -5,6 +5,7 @@
   "whisper_device": "cuda",
   "beam_size": 5,
   "language": "ru",
+  "initial_prompt": "Голосовые команды компьютеру: напиши скрипт, Python, папка, файл, рабочий стол, корзина, открой, создай, запусти.",
   "dispatcher": {
     "provider": "ollama",
     "base_url": "http://localhost:11434/v1",

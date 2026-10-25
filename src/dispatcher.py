@@ -74,10 +74,10 @@ def _client_and_request(config: dict, root: Path, timeout: float | None = None):
     return OpenAI(**client_options), request
 
 
-def _say_fragment(raw: str) -> str:
+def _say_fragment(raw: str) -> tuple[str, bool]:
     match = re.search(r'"say"\s*:\s*"', raw)
     if not match:
-        return ""
+        return "", False
     start = match.end()
     escaped = False
     end = len(raw)
@@ -89,7 +89,8 @@ def _say_fragment(raw: str) -> str:
         escaped = char == "\\" and not escaped
         if char != "\\":
             escaped = False
-    return raw[start:end].replace("\\n", "\n").replace('\\"', '"')
+    closed = end < len(raw)
+    return raw[start:end].replace("\\n", "\n").replace('\\"', '"'), closed
 
 
 def _take_sentences(text: str, final: bool = False) -> tuple[list[str], str]:
@@ -118,7 +119,7 @@ def dispatch_stream(text: str, config: dict, root: Path, on_sentence) -> dict[st
     first_fragment_at = None
     raw = ""
     say_seen = ""
-    remainder = ""
+    say_sent = False
     try:
         response = client.chat.completions.create(**request, stream=True)
         for chunk in response:
@@ -128,16 +129,17 @@ def dispatch_stream(text: str, config: dict, root: Path, on_sentence) -> dict[st
             if first_fragment_at is None:
                 first_fragment_at = time.perf_counter()
             raw += delta
-            current_say = _say_fragment(raw)
+            current_say, say_closed = _say_fragment(raw)
             if current_say.startswith(say_seen):
-                remainder += current_say[len(say_seen) :]
                 say_seen = current_say
-                sentences, remainder = _take_sentences(remainder)
-                for sentence in sentences:
-                    on_sentence(sentence)
+                if say_closed and not say_sent:
+                    say_sent = True
+                    print(f"Время до закрытия поля say: {time.perf_counter() - started_at:.1f} секунд")
+                    for sentence in _take_sentences(current_say, final=True)[0]:
+                        on_sentence(sentence)
         result = parse_response(raw)
-        if remainder.strip():
-            for sentence in _take_sentences(remainder, final=True)[0]:
+        if not say_sent:
+            for sentence in _take_sentences(result["say"], final=True)[0]:
                 on_sentence(sentence)
         print(f"Время до первого фрагмента ответа: {(first_fragment_at - started_at) if first_fragment_at else 0:.1f} секунд")
         return result

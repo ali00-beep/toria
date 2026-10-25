@@ -78,10 +78,15 @@ class SpeechManager:
 
     def _speak_edge(self, text: str, stop_event: threading.Event) -> None:
         rate = f"{round((self.speed - 1) * 100):+d}%"
+        synthesis_started_at = time.perf_counter()
+        if self._timing_started_at is not None:
+            print(f"Начало синтеза: {synthesis_started_at - self._timing_started_at:.1f} секунд")
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as file:
             audio_file = Path(file.name)
         try:
             asyncio.run(edge_tts.Communicate(text, self.voice, rate=rate).save(str(audio_file)))
+            if self._timing_started_at is not None:
+                print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
             if stop_event.is_set():
                 return
             if not self._pygame_ready:
@@ -124,11 +129,15 @@ class SpeechManager:
                 break
         engine.say(text)
         try:
+            if self._timing_started_at is not None:
+                print(f"Начало синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
             if not self._audio_started:
                 self._audio_started = True
                 if self._timing_started_at is not None:
                     print(f"Время до начала звука: {time.perf_counter() - self._timing_started_at:.1f} секунд")
             engine.runAndWait()
+            if self._timing_started_at is not None:
+                print(f"Конец синтеза: {time.perf_counter() - self._timing_started_at:.1f} секунд")
         finally:
             with self._lock:
                 self._windows_engine = None
