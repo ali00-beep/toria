@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import sys
 import threading
 import time
@@ -11,6 +12,12 @@ import numpy as np
 import sounddevice as sd
 import soundfile as sf
 from pynput import keyboard
+
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 
 
 _CUDA_DLL_HANDLES = []
@@ -30,12 +37,14 @@ from faster_whisper import WhisperModel
 try:
     from dispatcher import dispatch
     from dispatcher import dispatch_stream
-    from executor import execute
+    from executor import execute, run_file, run_requested
+    from log_utils import log_event
     from tts import SpeechManager
 except ImportError:
     from .dispatcher import dispatch
     from .dispatcher import dispatch_stream
-    from .executor import execute
+    from .executor import execute, run_file, run_requested
+    from .log_utils import log_event
     from .tts import SpeechManager
 
 
@@ -151,15 +160,37 @@ def warmup_dispatcher(dispatcher_config: dict) -> None:
         print("Диспетчер готов")
 
 
-def run_executor(task: str, original_text: str, executor_config: dict, speech: SpeechManager) -> None:
+def run_executor(task: str, original_text: str, executor_config: dict, speech: SpeechManager, on_finished, is_current) -> None:
     print("Исполнитель работает...")
     try:
-        output_path = execute(task, original_text, executor_config, ROOT)
+        result = execute(task, original_text, executor_config, ROOT)
+        log_event(ROOT, "Результат исполнителя", str(result))
+        if result["status"] != "ok":
+            print(f"Ошибка исполнителя: {result['details']}")
+            speech.speak(result["summary"])
+            on_finished(None, False, RuntimeError(result["details"]))
+            return
+        output_match = re.search(r"Файл: (.+)$", result["details"])
+        if output_match is None:
+            raise RuntimeError("исполнитель не вернул путь сохранённого файла")
+        output_path = Path(output_match.group(1))
+        if not is_current():
+            print("Результат исполнителя отменён: началась новая запись")
+            on_finished(None, False, None)
+            return
         print(f"Файл сохранён: {output_path}")
-        speech.speak("Готово, файл сохранён")
+        if run_requested(original_text):
+            run_file(output_path, ROOT)
+            print(f"Файл запущен: {output_path}")
+            speech.speak("Готово, файл запущен")
+        else:
+            speech.speak(f"Готово, файл сохранён. Выполнить: {output_path.name}? Скажи да или нет")
+        on_finished(output_path, run_requested(original_text), None)
     except Exception as error:
+        log_event(ROOT, "Исключение исполнителя", str(error))
         print(f"Ошибка исполнителя: {error}")
         speech.speak("Не получилось")
+        on_finished(None, False, error)
 
 
 def main() -> None:
@@ -175,6 +206,8 @@ def main() -> None:
     started_at = 0.0
     model_cache: dict = {}
     speech = SpeechManager(tts_config)
+    pending_execution = {"path": None, "deadline": 0.0}
+    recording_number = 0
     print("Прогрев Whisper...")
     warmup_whisper(whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache)
     threading.Thread(target=warmup_dispatcher, args=(dispatcher_config,), daemon=True).start()
@@ -186,9 +219,10 @@ def main() -> None:
             audio_chunks.append(data.copy())
 
     def on_press(key):
-        nonlocal recording, started_at, audio_chunks
+        nonlocal recording, started_at, audio_chunks, recording_number
         if key == hotkey and not recording:
             speech.stop()
+            recording_number += 1
             recording = True
             started_at = time.monotonic()
             audio_chunks = []
@@ -206,17 +240,48 @@ def main() -> None:
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
             while listener.is_alive():
                 if stop_recording.wait(0.05):
+                    captured_number = recording_number
+                    captured_chunks = audio_chunks
                     recording = False
                     duration = time.monotonic() - started_at
                     output_file = recordings_folder / "test.wav"
-                    if audio_chunks:
-                        sf.write(output_file, np.concatenate(audio_chunks, axis=0), TARGET_SAMPLE_RATE)
+                    if captured_chunks:
+                        sf.write(output_file, np.concatenate(captured_chunks, axis=0), TARGET_SAMPLE_RATE)
                     else:
                         sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
                     recognized_text = transcribe(
                         output_file, whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache
                     )
+                    log_event(ROOT, "Распознанная команда", recognized_text)
+
+                    if captured_number != recording_number:
+                        print("Предыдущая запись отменена: началась новая запись")
+                        continue
+
+                    if pending_execution["path"] is not None:
+                        answer = recognized_text.lower().strip()
+                        path = pending_execution["path"]
+                        pending_execution["path"] = None
+                        if time.monotonic() > pending_execution["deadline"]:
+                            speech.speak("Время подтверждения истекло")
+                        elif answer in {"да", "давай", "выполняй", "подтверждаю"}:
+                            try:
+                                run_file(path, ROOT)
+                                print(f"Файл запущен: {path}")
+                                speech.speak("Готово, файл запущен")
+                            except Exception as error:
+                                print(f"Ошибка запуска файла: {error}")
+                                speech.speak("Не получилось")
+                        elif answer in {"нет", "отмена", "не надо"}:
+                            print("Запуск файла отклонён")
+                            speech.speak("Запуск отменён")
+                        else:
+                            print("Подтверждение не распознано, запуск отменён")
+                            speech.speak("Нужно сказать да или нет")
+                        stop_recording.clear()
+                        continue
+
                     response_started_at = time.perf_counter()
 
                     def on_sentence(sentence: str) -> None:
@@ -229,11 +294,24 @@ def main() -> None:
 
                     result = dispatch_stream(recognized_text, dispatcher_config, ROOT, on_sentence)
                     if result is not None:
+                        log_event(ROOT, "Ответ диспетчера", str(result))
                         print(f"Задача: {result['task'] or 'нет'}")
                         if result["task"]:
+                            log_event(ROOT, "Задача исполнителю", result["task"])
+                            def executor_finished(path, started, error):
+                                if path is not None and not started:
+                                    pending_execution["path"] = path
+                                    pending_execution["deadline"] = time.monotonic() + 15
                             threading.Thread(
                                 target=run_executor,
-                                args=(result["task"], recognized_text, executor_config, speech),
+                                args=(
+                                    result["task"],
+                                    recognized_text,
+                                    executor_config,
+                                    speech,
+                                    executor_finished,
+                                    lambda number=captured_number: number == recording_number,
+                                ),
                                 daemon=True,
                             ).start()
                     stop_recording.clear()

@@ -2,6 +2,8 @@
 
 import os
 import re
+import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -52,38 +54,57 @@ def _next_output_path(output_dir: Path, filename: str) -> Path:
     return candidate
 
 
-def execute(task: str, original_text: str, config: dict, root: Path) -> Path:
-    load_dotenv(root / ".env")
-    provider = str(config.get("provider", "")).lower()
-    api_key_env = config.get("api_key_env")
-    api_key = os.getenv(str(api_key_env)) if api_key_env else None
-    if not api_key:
-        if provider == "ollama":
-            api_key = "ollama"
-        else:
-            raise RuntimeError(f"в .env нет переменной {api_key_env or 'EXECUTOR_API_KEY'}")
+def run_requested(original_text: str) -> bool:
+    return bool(re.search(r"\b(запусти|запустить|выполни|выполнить|запуск|открой)\b", original_text.lower()))
 
-    prompt_path = root / "prompts" / "executor.txt"
-    system_prompt = prompt_path.read_text(encoding="utf-8")
-    client = OpenAI(api_key=api_key, base_url=str(config.get("base_url", "")) or None)
-    response = client.chat.completions.create(
-        model=str(config.get("model", "CHANGE_ME")),
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {
-                "role": "user",
-                "content": f"Описание задачи исполнителю:\n{task}\n\nИсходная фраза пользователя:\n{original_text}",
-            },
-        ],
-        temperature=float(config.get("temperature", 0.2)),
-    )
-    content = response.choices[0].message.content or ""
-    filename = _extract_filename(content)
-    language, code = _extract_code(content)
-    output_dir = root / "workspace" / "output"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    if filename is None:
-        filename = f"script_{datetime.now():%Y%m%d_%H%M%S}.py"
-    output_path = _next_output_path(output_dir, filename)
-    output_path.write_text(code, encoding="utf-8")
-    return output_path
+
+def run_file(output_path: Path, root: Path) -> None:
+    output_root = (root / "workspace" / "output").resolve()
+    path = output_path.resolve()
+    if output_root not in path.parents or path.suffix.lower() != ".py":
+        raise ValueError("разрешён запуск только Python-файла из workspace/output")
+    subprocess.Popen([sys.executable, str(path)], cwd=output_root, shell=False)
+
+
+def execute(task: str, original_text: str, config: dict, root: Path) -> dict[str, str]:
+    try:
+        load_dotenv(root / ".env")
+        provider = str(config.get("provider", "")).lower()
+        api_key_env = config.get("api_key_env")
+        api_key = os.getenv(str(api_key_env)) if api_key_env else None
+        if not api_key:
+            if provider == "ollama":
+                api_key = "ollama"
+            else:
+                raise RuntimeError(f"в .env нет переменной {api_key_env or 'EXECUTOR_API_KEY'}")
+
+        prompt_path = root / "prompts" / "executor.txt"
+        system_prompt = prompt_path.read_text(encoding="utf-8")
+        client = OpenAI(api_key=api_key, base_url=str(config.get("base_url", "")) or None)
+        response = client.chat.completions.create(
+            model=str(config.get("model", "CHANGE_ME")),
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {
+                    "role": "user",
+                    "content": f"Описание задачи исполнителю:\n{task}\n\nИсходная фраза пользователя:\n{original_text}",
+                },
+            ],
+            temperature=float(config.get("temperature", 0.2)),
+        )
+        content = response.choices[0].message.content or ""
+        filename = _extract_filename(content)
+        language, code = _extract_code(content)
+        output_dir = root / "workspace" / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        if filename is None:
+            filename = f"script_{datetime.now():%Y%m%d_%H%M%S}.py"
+        output_path = _next_output_path(output_dir, filename)
+        output_path.write_text(code, encoding="utf-8")
+        return {
+            "status": "ok",
+            "summary": "Готово, файл сохранён",
+            "details": f"Файл: {output_path}",
+        }
+    except Exception as error:
+        return {"status": "error", "summary": "Не получилось", "details": str(error)}
