@@ -26,6 +26,7 @@ from . import theme
 
 ROOT = Path(__file__).resolve().parent.parent
 ART_PATH = ROOT / "ui" / "assets" / "toria_art.json"
+WORD_PATH = ROOT / theme.WORD_ART_PATH
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -51,11 +52,9 @@ class ConsoleUI:
             return {}
 
     def header(self):
-        title = Text()
-        for index, char in enumerate("Toria"):
-            title.append(char, style=f"bold {self._gradient_color(index, 5)}")
+        word_lines = self._word_art()
         right = [
-            title,
+            *word_lines,
             Text("Голосовой помощник для вашего ПК"),
             Text(""),
             Text("v0.1", style=theme.MUTED),
@@ -88,6 +87,20 @@ class ConsoleUI:
             self.console.print(Columns([art, right_group], expand=False, padding=(0, 4)))
         else:
             self.console.print(Group(*right))
+
+    def _word_art(self):
+        try:
+            lines = WORD_PATH.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            lines = ["Toria"]
+        width = max((len(line) for line in lines), default=1)
+        rendered = []
+        for line in lines:
+            text = Text()
+            for index, char in enumerate(line):
+                text.append(char, style=f"bold {self._gradient_color(index, width)}")
+            rendered.append(text)
+        return rendered
 
     @staticmethod
     def _gradient_color(index, length, brightness=255):
