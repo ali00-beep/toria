@@ -1,5 +1,5 @@
-from .app import VoiceAgentApp
+from .app import ConsoleUI
 
 
 if __name__ == "__main__":
-    VoiceAgentApp().run()
+    ConsoleUI().run()
