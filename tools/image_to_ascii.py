@@ -1,118 +1,173 @@
-"""Готовит геометрически корректный ASCII-арт эмблемы TORIA."""
+"""Превращает логотип Toria (PNG) в ASCII-арт для стартового экрана.
 
+Запуск (из папки проекта):
+    python tools/image_to_ascii.py
+    python tools/image_to_ascii.py путь/к/картинке.png --rows 24 --cell-aspect 2.1
+
+Что делает:
+  1. Находит эмблему (всё левее слова TORIA) по яркости относительно фона.
+  2. Вырезает её строго квадратом вокруг центра.
+  3. Сжимает квадрат в сетку COLS x ROWS, где COLS = ROWS * CELL_ASPECT.
+     Ячейка терминала примерно вдвое выше своей ширины, поэтому столбцов
+     нужно в ~2.1 раза больше, чем строк, иначе углы лучей «поедет».
+  4. Выбирает символ по яркости с упорядоченным дизерингом (матрица Байера 4x4).
+  5. Сохраняет ui/assets/toria_art.json (символы + яркость 0-255)
+     и, если указан --preview, картинку для проверки геометрии.
+
+Нужен только Pillow (и numpy). Во время работы агента этот скрипт не нужен:
+интерфейс читает готовый json.
+"""
+from __future__ import annotations
+
+import argparse
 import json
-import sys
 from pathlib import Path
 
-try:
-    from PIL import Image, ImageDraw, ImageFont, ImageOps
-except ImportError:
-    print("Pillow не установлен. Установите Pillow отдельно, затем повторите запуск.")
-    raise SystemExit(2)
+import numpy as np
+from PIL import Image
 
-if len(sys.argv) != 2:
-    print("Использование: python tools/image_to_ascii.py путь\к\картинке")
-    raise SystemExit(1)
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_IMAGE = ROOT / "ui" / "assets" / "toria_logo.png"
+DEFAULT_OUT = ROOT / "ui" / "assets" / "toria_art.json"
 
-root = Path(__file__).resolve().parents[1]
-output = root / "ui" / "assets" / "toria_art.json"
-preview_path = root / "ui" / "assets" / "toria_art_preview.png"
-chars = " .:-=+*#%"
-cell_aspect = 2.1
-width, height = round(24 * cell_aspect), 24
-with Image.open(sys.argv[1]) as source:
-    left = source.crop((0, 0, int(source.width * 0.43), int(source.height * 0.73)))
-    visible = left.point(lambda value: 255 if value > 20 else 0)
-    bounds = visible.getbbox()
-    if not bounds:
-        raise RuntimeError("Эмблема не найдена в левой части изображения")
-    bx0, by0, bx1, by1 = bounds
-    side = int(max(bx1 - bx0, by1 - by0) * 1.05)
-    cx, cy = (bx0 + bx1) / 2, (by0 + by1) / 2
-    square = left.crop((round(cx - side / 2), round(cy - side / 2), round(cx + side / 2), round(cy + side / 2)))
-    image = ImageOps.autocontrast(square.convert("L")).resize((width, height), Image.Resampling.LANCZOS)
-cells = []
-for y in range(height):
-    row = []
-    for x in range(width):
-        raw_brightness = image.getpixel((x, y))
-        # Подчёркиваем основание лучей и мягко приглушаем их концы.
-        dx = (x - (width - 1) / 2) / (width / 2)
-        dy = (y - (height - 1) / 2) / (height / 2)
-        radius = min(1.0, (dx * dx + dy * dy) ** 0.5)
-        center_boost = 1.30 - 0.65 * radius
-        brightness = max(0, min(255, round(raw_brightness * center_boost)))
-        row.append({"char": chars[brightness * (len(chars) - 1) // 255], "brightness": brightness})
-    cells.append(row)
-output.parent.mkdir(parents=True, exist_ok=True)
-output.write_text(json.dumps({"width": width, "height": height, "cells": cells}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+CHAR_RAMP = " .:-=+*#%@"
+BAYER_4 = np.array(
+    [[0, 8, 2, 10],
+     [12, 4, 14, 6],
+     [3, 11, 1, 9],
+     [15, 7, 13, 5]],
+    dtype=float,
+)
+BAYER_4 = (BAYER_4 + 0.5) / 16.0  # пороги 0..1
 
-# Preview: терминальная ячейка 9x19, рядом исходная квадратная эмблема.
-font = ImageFont.load_default()
-cell_w, cell_h = 9, 19
-preview = Image.new("RGB", (width * cell_w * 2 + 20, height * cell_h), "#101010")
-draw = ImageDraw.Draw(preview)
-for y, row in enumerate(cells):
-    for x, cell in enumerate(row):
-        draw.text((x * cell_w, y * cell_h), cell["char"], fill=(cell["brightness"],) * 3, font=font)
-original = square.convert("L").resize((width * cell_w, height * cell_h), Image.Resampling.LANCZOS)
-preview.paste(Image.merge("RGB", (original, original, original)), (width * cell_w + 20, 0))
-preview.save(preview_path)
-print(f"Сохранено: {output}")
-print(f"Preview: {preview_path}")
+BG_MARGIN = 4       # насколько ярче фона должен быть пиксель эмблемы (хвосты лучей тусклые)
+MERGE_GAP_PX = 80   # просвет между лучами меньше этого считаем одной эмблемой
+CROP_PADDING = 1.05  # запас вокруг эмблемы
+EMPTY_BELOW = 0.04   # ячейки темнее этого значения остаются пустыми
 
-def component_angles(mask):
-    w, h = mask.size
-    pixels = mask.load()
-    seen, result = set(), []
-    for y in range(h):
-        for x in range(w):
-            if not pixels[x, y] or (x, y) in seen:
+
+def luminance(img: Image.Image) -> np.ndarray:
+    rgb = np.asarray(img.convert("RGB"), dtype=float)
+    return rgb.mean(axis=2)
+
+
+def find_emblem_box(lum: np.ndarray) -> tuple[int, int, int, int, float]:
+    """Границы эмблемы (левая группа ярких пикселей, до слова TORIA)."""
+    bg = float(np.median(lum[:50, :50]))
+    mask = lum > bg + BG_MARGIN
+    cols = mask.any(axis=0)
+
+    runs: list[list[int]] = []
+    start = None
+    for x, on in enumerate(cols):
+        if on and start is None:
+            start = x
+        elif not on and start is not None:
+            runs.append([start, x - 1])
+            start = None
+    if start is not None:
+        runs.append([start, len(cols) - 1])
+    if not runs:
+        raise SystemExit("Не нашёл эмблему: картинка пустая или фон не тёмный.")
+
+    # склеиваем близкие группы столбцов, берём самую левую группу
+    merged = [runs[0]]
+    for r in runs[1:]:
+        if r[0] - merged[-1][1] <= MERGE_GAP_PX:
+            merged[-1][1] = r[1]
+        else:
+            break  # дальше начинается слово TORIA
+    x0, x1 = merged[0]
+    ys = np.where(mask[:, x0 : x1 + 1].any(axis=1))[0]
+    return x0, x1, int(ys.min()), int(ys.max()), bg
+
+
+def square_crop(lum: np.ndarray, box: tuple[int, int, int, int, float]) -> np.ndarray:
+    x0, x1, y0, y1, bg = box
+    w, h = x1 - x0 + 1, y1 - y0 + 1
+    side = int(round(max(w, h) * CROP_PADDING))
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    left, top = int(round(cx - side / 2)), int(round(cy - side / 2))
+
+    canvas = np.full((side, side), bg, dtype=float)
+    # копируем с учётом выхода за границы картинки
+    sx0, sy0 = max(left, 0), max(top, 0)
+    sx1, sy1 = min(left + side, lum.shape[1]), min(top + side, lum.shape[0])
+    canvas[sy0 - top : sy1 - top, sx0 - left : sx1 - left] = lum[sy0:sy1, sx0:sx1]
+    return canvas
+
+
+def to_grid(square: np.ndarray, bg: float, rows: int, cols: int) -> np.ndarray:
+    img = Image.fromarray(np.clip(square, 0, 255).astype(np.uint8), "L")
+    small = np.asarray(img.resize((cols, rows), Image.BOX), dtype=float)
+    v = np.clip((small - bg) / max(small.max() - bg, 1.0), 0.0, 1.0)
+    return v
+
+
+def to_chars(v: np.ndarray) -> list[str]:
+    rows, cols = v.shape
+    n = len(CHAR_RAMP) - 1
+    lines = []
+    for y in range(rows):
+        line = []
+        for x in range(cols):
+            val = v[y, x]
+            if val < EMPTY_BELOW:
+                line.append(" ")
                 continue
-            stack, points = [(x, y)], []
-            seen.add((x, y))
-            while stack:
-                px, py = stack.pop(); points.append((px, py))
-                for nx, ny in ((px+1, py), (px-1, py), (px, py+1), (px, py-1)):
-                    if 0 <= nx < w and 0 <= ny < h and pixels[nx, ny] and (nx, ny) not in seen:
-                        seen.add((nx, ny)); stack.append((nx, ny))
-            if len(points) > 20:
-                mx = sum(p[0] for p in points) / len(points)
-                my = sum(p[1] for p in points) / len(points)
-                xx = sum((p[0]-mx)**2 for p in points)
-                yy = sum((p[1]-my)**2 for p in points)
-                xy = sum((p[0]-mx)*(p[1]-my) for p in points)
-                angle = 0.5 * __import__("math").degrees(__import__("math").atan2(2*xy, xx-yy))
-                result.append(angle)
-    return sorted(result)[:8]
+            level = val * n
+            base = int(np.floor(level))
+            frac = level - base
+            idx = base + (1 if frac > BAYER_4[y % 4, x % 4] else 0)
+            idx = max(1, min(n, idx))  # непустая ячейка не может быть пробелом
+            line.append(CHAR_RAMP[idx])
+        lines.append("".join(line))
+    return lines
 
-small_original = square.convert("L").resize((240, 240), Image.Resampling.BILINEAR).point(lambda v: 255 if v > 20 else 0)
-angles_original = component_angles(small_original)
-angles_preview = angles_original[:]
-if len(angles_original) < 8:
-    # Некоторые лучи касаются соседних и становятся одной связной областью.
-    # В этом случае измеряем ось в восьми секторах вокруг центра эмблемы.
-    import math
-    pix = small_original.load(); cx = cy = 120
-    sector_angles = []
-    for sector in range(8):
-        points = []
-        for y in range(240):
-            for x in range(240):
-                if not pix[x, y]:
-                    continue
-                angle = (math.degrees(math.atan2(y-cy, x-cx)) + 360) % 360
-                target = sector * 45
-                distance = abs((angle - target + 180) % 360 - 180)
-                if distance <= 22.5:
-                    points.append((x, y))
-        if points:
-            mx = sum(x for x, _ in points) / len(points); my = sum(y for _, y in points) / len(points)
-            xx = sum((x-mx)**2 for x, y in points); yy = sum((y-my)**2 for x, y in points)
-            xy = sum((x-mx)*(y-my) for x, y in points)
-            sector_angles.append(0.5 * math.degrees(math.atan2(2*xy, xx-yy)))
-    angles_original = sector_angles[:8]
-    angles_preview = angles_original[:]
-print("Лучи | оригинал | preview | расхождение")
-for index, (before, after) in enumerate(zip(angles_original, angles_preview), 1):
-    print(f"{index:>4} | {before:>8.1f}° | {after:>7.1f}° | {abs(before-after):>10.1f}°")
+
+def save_json(path: Path, chars: list[str], v: np.ndarray, sub: np.ndarray, cell_aspect: float) -> None:
+    data = {
+        "rows": len(chars),
+        "cols": len(chars[0]),
+        "cell_aspect": cell_aspect,
+        # режим «ascii»: символ и яркость каждой ячейки
+        "chars": chars,
+        "brightness": [[int(round(b * 255)) for b in row] for row in v],
+        # режим «blocks»: яркость двух половинок каждой ячейки (2*rows строк)
+        "sub_brightness": [[int(round(b * 255)) for b in row] for row in sub],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("image", nargs="?", default=str(DEFAULT_IMAGE))
+    ap.add_argument("--out", default=str(DEFAULT_OUT))
+    ap.add_argument("--rows", type=int, default=24)
+    ap.add_argument("--cell-aspect", type=float, default=2.1,
+                    help="высота ячейки терминала / ширина (Windows Terminal ~2.1)")
+    ap.add_argument("--preview", default="", help="сохранить картинку для проверки")
+    args = ap.parse_args()
+
+    cols = int(round(args.rows * args.cell_aspect))
+    lum = luminance(Image.open(args.image))
+    box = find_emblem_box(lum)
+    square = square_crop(lum, box)
+    sub = to_grid(square, box[4], args.rows * 2, cols)          # две половинки на ячейку
+    v = sub.reshape(args.rows, 2, cols).mean(axis=1)
+    v = v / max(v.max(), 1e-6)
+    chars = to_chars(v)
+
+    save_json(Path(args.out), chars, v, sub, args.cell_aspect)
+    print(f"Эмблема: x {box[0]}-{box[1]}, y {box[2]}-{box[3]}; сетка {cols}x{args.rows}")
+    print("\n".join(chars))
+
+    if args.preview:
+        from preview_check import make_preview  # tools/preview_check.py
+        make_preview(square, box[4], chars, v, sub, args.preview, args.cell_aspect)
+        print(f"Превью: {args.preview}")
+
+
+if __name__ == "__main__":
+    main()
