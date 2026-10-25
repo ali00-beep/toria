@@ -25,7 +25,7 @@ from rich.text import Text
 from . import theme
 
 ROOT = Path(__file__).resolve().parent.parent
-ART_PATH = ROOT / "ui" / "assets" / "toria_art.txt"
+ART_PATH = ROOT / "ui" / "assets" / "toria_art.json"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -51,8 +51,11 @@ class ConsoleUI:
             return {}
 
     def header(self):
+        title = Text()
+        for index, char in enumerate("Toria"):
+            title.append(char, style=f"bold {self._gradient_color(index, 5)}")
         right = [
-            Text("Toria", style="bold white"),
+            title,
             Text("Голосовой помощник для вашего ПК"),
             Text(""),
             Text("v0.1", style=theme.MUTED),
@@ -66,17 +69,36 @@ class ConsoleUI:
             Text("F9 — запись голосовой команды", style=theme.MUTED),
         ]
         try:
-            art_lines = ART_PATH.read_text(encoding="utf-8").splitlines()
+            art_data = json.loads(ART_PATH.read_text(encoding="utf-8"))
         except OSError:
-            art_lines = []
+            art_data = {}
+        except json.JSONDecodeError:
+            art_data = {}
         width = shutil.get_terminal_size((120, 30)).columns
-        if width >= 90 and art_lines:
-            art = Group(*[Text(line, style=theme.ART_STYLES[min(i // 3, len(theme.ART_STYLES) - 1)]) for i, line in enumerate(art_lines)])
-            padding = max(0, (len(art_lines) - len(right)) // 2)
+        if width >= 90 and art_data.get("cells"):
+            art_rows = []
+            for row in art_data["cells"]:
+                line = Text()
+                for x, cell in enumerate(row):
+                    line.append(cell["char"], style=self._gradient_color(x, theme.ART_WIDTH, cell["brightness"]))
+                art_rows.append(line)
+            art = Group(*art_rows)
+            padding = max(0, (theme.ART_HEIGHT - len(right)) // 2)
             right_group = Group(*([Text("")] * padding + right))
             self.console.print(Columns([art, right_group], expand=False, padding=(0, 4)))
         else:
             self.console.print(Group(*right))
+
+    @staticmethod
+    def _gradient_color(index, length, brightness=255):
+        def rgb(value):
+            value = value.lstrip("#")
+            return tuple(int(value[i:i + 2], 16) for i in (0, 2, 4))
+        start, end = rgb(theme.ACCENT_START), rgb(theme.ACCENT_END)
+        ratio = index / max(1, length - 1)
+        factor = max(0.0, min(1.0, brightness / 255))
+        color = tuple(round((start[i] + (end[i] - start[i]) * ratio) * factor) for i in range(3))
+        return "#%02x%02x%02x" % color
 
     def start_voice(self):
         python_path = ROOT / ".venv" / "Scripts" / "python.exe"
