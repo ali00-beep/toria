@@ -37,19 +37,24 @@ from faster_whisper import WhisperModel
 try:
     from dispatcher import dispatch
     from dispatcher import dispatch_stream
-    from executor import execute, run_file, run_requested
+    from executor import confirm_run, execute, run_file, run_requested
     from log_utils import log_event
     from tts import SpeechManager
 except ImportError:
     from .dispatcher import dispatch
     from .dispatcher import dispatch_stream
-    from .executor import execute, run_file, run_requested
+    from .executor import confirm_run, execute, run_file, run_requested
     from .log_utils import log_event
     from .tts import SpeechManager
 
 
 ROOT = Path(__file__).resolve().parent.parent
 TARGET_SAMPLE_RATE = 16_000
+
+if os.name == "nt":
+    user_profile = os.environ.get("USERPROFILE") or str(ROOT.parent)
+    os.environ.setdefault("USERPROFILE", user_profile)
+    os.environ.setdefault("HOME", user_profile)
 
 
 def load_config() -> tuple[str, Path, str, str, int, str, str, dict, dict, dict]:
@@ -207,13 +212,14 @@ def run_executor(task: str, original_text: str, executor_config: dict, speech: S
             on_finished(None, False, None)
             return
         print(f"Файл сохранён: {output_path}")
-        if run_requested(original_text):
+        if confirm_run(output_path):
             run_file(output_path, ROOT)
             print(f"Файл запущен: {output_path}")
             speech.speak("Готово, файл запущен")
         else:
-            speech.speak(f"Готово, файл сохранён. Выполнить: {output_path.name}? Скажи да или нет")
-        on_finished(output_path, run_requested(original_text), None)
+            print("Запуск файла отменён пользователем")
+            speech.speak("Готово, файл сохранён")
+        on_finished(output_path, True, None)
     except Exception as error:
         log_event(ROOT, "Исключение исполнителя", str(error))
         print(f"Ошибка исполнителя: {error}")
@@ -335,9 +341,14 @@ def main() -> None:
                     else:
                         sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
-                    recognized_text = transcribe(
-                        output_file, whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache
-                    )
+                    try:
+                        recognized_text = transcribe(
+                            output_file, whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache
+                        )
+                    except Exception as error:
+                        print(f"Ошибка распознавания: {error}")
+                        stop_recording.clear()
+                        continue
                     log_event(ROOT, "Распознанная команда", recognized_text)
 
                     if not recognized_text.strip():

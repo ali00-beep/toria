@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import sys
+import ctypes
 from datetime import datetime
 from pathlib import Path
 
@@ -64,6 +65,19 @@ def run_file(output_path: Path, root: Path) -> None:
     if output_root not in path.parents or path.suffix.lower() != ".py":
         raise ValueError("разрешён запуск только Python-файла из workspace/output")
     subprocess.Popen([sys.executable, str(path)], cwd=output_root, shell=False)
+
+
+def confirm_run(output_path: Path) -> bool:
+    if os.name != "nt":
+        return False
+    message_box = ctypes.windll.user32.MessageBoxW
+    result = message_box(
+        None,
+        f"Запустить файл?\n\n{output_path.name}",
+        "Голосовой ассистент",
+        0x00000004 | 0x00000020,
+    )
+    return result == 6
 
 
 def execute(task: str, original_text: str, config: dict, root: Path) -> dict[str, str]:
