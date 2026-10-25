@@ -23,6 +23,7 @@ from rich.console import Console, Group
 from rich.text import Text
 
 from . import theme
+from .logo import start_screen_lines, word_lines
 
 ROOT = Path(__file__).resolve().parent.parent
 ART_PATH = ROOT / "ui" / "assets" / "toria_art.json"
@@ -36,7 +37,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 class ConsoleUI:
     def __init__(self):
-        self.console = Console(highlight=False)
+        self.console = Console(highlight=False, force_terminal=True, color_system="truecolor")
         self.config = self._load_config()
         self.output_queue = queue.Queue()
         self.process = None
@@ -52,41 +53,22 @@ class ConsoleUI:
             return {}
 
     def header(self):
-        word_lines = self._word_art()
         right = [
-            *word_lines,
-            Text("Голосовой помощник для вашего ПК"),
-            Text(""),
-            Text("v0.1", style=theme.MUTED),
-            Text("─" * 34, style=theme.MUTED),
-            Text("Начало работы", style="bold white"),
-            Text("> /модели       выбрать нейросети", style=theme.SUCCESS),
-            Text("  /детали       показать или скрыть технические строки"),
-            Text("  /лог          показать последние строки лога"),
-            Text("  /выход        завершить работу"),
-            Text(""),
-            Text("F9 — запись голосовой команды", style=theme.MUTED),
+            *word_lines(),
+            "",
+            "Голосовой помощник для вашего ПК",
+            "",
+            "v0.1",
+            "─" * 62,
+            "Начало работы",
+            "> /модели       выбрать нейросети",
+            "  /детали       показать или скрыть технические строки",
+            "  /лог          показать последние строки лога",
+            "  /выход        завершить работу",
+            "",
+            "F9 — запись голосовой команды",
         ]
-        try:
-            art_data = json.loads(ART_PATH.read_text(encoding="utf-8"))
-        except OSError:
-            art_data = {}
-        except json.JSONDecodeError:
-            art_data = {}
-        width = shutil.get_terminal_size((120, 30)).columns
-        if width >= 90 and art_data.get("cells"):
-            art_rows = []
-            for row in art_data["cells"]:
-                line = Text()
-                for x, cell in enumerate(row):
-                    line.append(cell["char"], style=self._gradient_color(x, theme.ART_WIDTH, cell["brightness"]))
-                art_rows.append(line)
-            art = Group(*art_rows)
-            padding = max(0, (theme.ART_HEIGHT - len(right)) // 2)
-            right_group = Group(*([Text("")] * padding + right))
-            self.console.print(Columns([art, right_group], expand=False, padding=(0, 4)))
-        else:
-            self.console.print(Group(*right))
+        self.console.print(Text.from_ansi("\n".join(start_screen_lines(right))))
 
     def _word_art(self):
         try:
