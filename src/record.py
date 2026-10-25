@@ -52,7 +52,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TARGET_SAMPLE_RATE = 16_000
 
 
-def load_config() -> tuple[str, Path, str, str, int, str, str, dict, dict]:
+def load_config() -> tuple[str, Path, str, str, int, str, str, dict, dict, dict]:
     with (ROOT / "config.json").open(encoding="utf-8") as file:
         config = json.load(file)
     hotkey = str(config.get("hotkey", "F9")).upper()
@@ -64,7 +64,26 @@ def load_config() -> tuple[str, Path, str, str, int, str, str, dict, dict]:
     initial_prompt = str(config.get("initial_prompt", ""))
     dispatcher_config = config.get("dispatcher", {})
     tts_config = config.get("tts", {})
-    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config
+    voice_activation = config.get("voice_activation", {})
+    return hotkey, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config, voice_activation
+
+
+def normalize_text(text: str) -> str:
+    return " ".join(re.sub(r"[^а-яёa-z0-9]+", " ", text.lower()).split())
+
+
+def extract_wake_command(text: str, wake_words: list[str]) -> tuple[bool, str]:
+    normalized = normalize_text(text)
+    for wake_word in sorted((normalize_text(word) for word in wake_words), key=len, reverse=True):
+        if normalized == wake_word:
+            return True, ""
+        if normalized.startswith(wake_word + " "):
+            return True, normalized[len(wake_word):].strip()
+    return False, normalized
+
+
+def is_stop_command(text: str) -> bool:
+    return normalize_text(text) in {"стоп", "остановись", "отмена", "отменить", "хватит"}
 
 
 def transcribe(
@@ -194,16 +213,25 @@ def run_executor(task: str, original_text: str, executor_config: dict, speech: S
 
 
 def main() -> None:
-    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config = load_config()
+    hotkey_name, recordings_folder, whisper_model, whisper_device, beam_size, language, initial_prompt, dispatcher_config, tts_config, voice_activation = load_config()
     with (ROOT / "config.json").open(encoding="utf-8") as file:
         executor_config = json.load(file).get("executor", {})
     hotkey = key_from_name(hotkey_name)
+    always_listen = bool(voice_activation.get("always_listen", True))
+    wake_words = [str(word) for word in voice_activation.get("wake_words", ["тора", "ториа", "тори"])]
+    wake_response = str(voice_activation.get("wake_response", "Да, слушаю."))
+    voice_threshold = float(voice_activation.get("voice_threshold", 0.015))
+    silence_duration = float(voice_activation.get("silence_duration", 0.8))
+    command_timeout = float(voice_activation.get("command_timeout", 8.0))
     recordings_folder.mkdir(parents=True, exist_ok=True)
 
     recording = False
+    recording_mode = "manual"
     stop_recording = threading.Event()
     audio_chunks: list = []
     started_at = 0.0
+    last_voice_at = 0.0
+    awaiting_command_until = 0.0
     model_cache: dict = {}
     speech = SpeechManager(tts_config)
     pending_execution = {"path": None, "deadline": 0.0}
@@ -213,17 +241,36 @@ def main() -> None:
     threading.Thread(target=warmup_dispatcher, args=(dispatcher_config,), daemon=True).start()
 
     def on_audio(data, frames, callback_time, status):
+        nonlocal recording, recording_mode, audio_chunks, started_at, last_voice_at, recording_number
         if status:
             print(f"Предупреждение аудио: {status}")
         if recording:
             audio_chunks.append(data.copy())
+            if always_listen and recording_mode == "voice":
+                level = float(np.sqrt(np.mean(np.square(data))))
+                if level >= voice_threshold:
+                    last_voice_at = time.monotonic()
+                elif time.monotonic() - last_voice_at >= silence_duration:
+                    stop_recording.set()
+        elif always_listen:
+            level = float(np.sqrt(np.mean(np.square(data))))
+            if level >= voice_threshold:
+                recording = True
+                recording_mode = "voice"
+                recording_number += 1
+                started_at = time.monotonic()
+                audio_chunks = [data.copy()]
+                last_voice_at = started_at
+                stop_recording.clear()
+                print("Слушаю...")
 
     def on_press(key):
-        nonlocal recording, started_at, audio_chunks, recording_number
+        nonlocal recording, recording_mode, started_at, audio_chunks, recording_number
         if key == hotkey and not recording:
             speech.stop()
             recording_number += 1
             recording = True
+            recording_mode = "manual"
             started_at = time.monotonic()
             audio_chunks = []
             stop_recording.clear()
@@ -242,6 +289,7 @@ def main() -> None:
                 if stop_recording.wait(0.05):
                     captured_number = recording_number
                     captured_chunks = audio_chunks
+                    captured_mode = recording_mode
                     recording = False
                     duration = time.monotonic() - started_at
                     output_file = recordings_folder / "test.wav"
@@ -257,6 +305,30 @@ def main() -> None:
 
                     if captured_number != recording_number:
                         print("Предыдущая запись отменена: началась новая запись")
+                        continue
+
+                    if captured_mode == "voice":
+                        was_wake, command_text = extract_wake_command(recognized_text, wake_words)
+                        if time.monotonic() <= awaiting_command_until:
+                            was_wake = True
+                            command_text = normalize_text(recognized_text)
+                        if not was_wake:
+                            stop_recording.clear()
+                            continue
+                        if not command_text:
+                            awaiting_command_until = time.monotonic() + command_timeout
+                            speech.speak(wake_response)
+                            stop_recording.clear()
+                            continue
+                        recognized_text = command_text
+                        awaiting_command_until = 0.0
+
+                    if is_stop_command(recognized_text):
+                        speech.stop()
+                        recording_number += 1
+                        pending_execution["path"] = None
+                        print("Остановлено")
+                        stop_recording.clear()
                         continue
 
                     if pending_execution["path"] is not None:
