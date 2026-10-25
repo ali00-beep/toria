@@ -25,7 +25,7 @@ def load_config() -> tuple[str, Path, str]:
     return hotkey, recordings_folder, whisper_model
 
 
-def transcribe(audio_file: Path, model_name: str) -> None:
+def transcribe(audio_file: Path, model_name: str, model_cache: dict | None = None) -> None:
     audio, sample_rate = sf.read(audio_file, dtype="float32", always_2d=True)
     if audio.shape[1] > 1:
         audio = audio.mean(axis=1)
@@ -44,13 +44,23 @@ def transcribe(audio_file: Path, model_name: str) -> None:
         segments, _ = model.transcribe(audio, language="ru")
         return " ".join(segment.text.strip() for segment in segments).strip()
 
+    if model_cache is None:
+        model_cache = {}
+
+    model = model_cache.get("model")
+    if model is None:
+        model = WhisperModel(model_name, device="auto", compute_type="default")
+
     try:
-        text = run_model(WhisperModel(model_name, device="auto", compute_type="default"))
+        text = run_model(model)
+        model_cache["model"] = model
     except RuntimeError as error:
         if "cublas64_12.dll" not in str(error).lower():
             raise
         print("GPU недоступен (не найден CUDA cublas), повторяю на CPU...")
-        text = run_model(WhisperModel(model_name, device="cpu", compute_type="int8"))
+        model = WhisperModel(model_name, device="cpu", compute_type="int8")
+        text = run_model(model)
+        model_cache["model"] = model
     print(f"Распознано: {text}")
 
 
@@ -70,6 +80,7 @@ def main() -> None:
     stop_recording = threading.Event()
     audio_chunks: list = []
     started_at = 0.0
+    model_cache: dict = {}
 
     def on_audio(data, frames, callback_time, status):
         if status:
@@ -105,7 +116,7 @@ def main() -> None:
                     else:
                         sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
-                    transcribe(output_file, whisper_model)
+                    transcribe(output_file, whisper_model, model_cache)
                     stop_recording.clear()
                 time.sleep(0.01)
             listener.join()
