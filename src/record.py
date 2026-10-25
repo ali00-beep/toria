@@ -13,6 +13,7 @@ from faster_whisper import WhisperModel
 
 
 ROOT = Path(__file__).resolve().parent.parent
+TARGET_SAMPLE_RATE = 16_000
 
 
 def load_config() -> tuple[str, Path, str]:
@@ -25,8 +26,22 @@ def load_config() -> tuple[str, Path, str]:
 
 
 def transcribe(audio_file: Path, model_name: str) -> None:
+    audio, sample_rate = sf.read(audio_file, dtype="float32", always_2d=True)
+    if audio.shape[1] > 1:
+        audio = audio.mean(axis=1)
+    else:
+        audio = audio[:, 0]
+
+    if sample_rate != TARGET_SAMPLE_RATE and len(audio) > 0:
+        target_length = round(len(audio) * TARGET_SAMPLE_RATE / sample_rate)
+        source_positions = np.arange(len(audio), dtype=np.float32)
+        target_positions = np.linspace(0, len(audio) - 1, target_length, dtype=np.float32)
+        audio = np.interp(target_positions, source_positions, audio).astype(np.float32)
+    else:
+        audio = audio.astype(np.float32, copy=False)
+
     model = WhisperModel(model_name, device="auto", compute_type="default")
-    segments, _ = model.transcribe(str(audio_file), language="ru")
+    segments, _ = model.transcribe(audio, language="ru")
     text = " ".join(segment.text.strip() for segment in segments).strip()
     print(f"Распознано: {text}")
 
@@ -70,7 +85,7 @@ def main() -> None:
             return False
 
     print(f"Удерживайте {hotkey_name} для записи. Для выхода нажмите Esc.")
-    with sd.InputStream(samplerate=16_000, channels=1, dtype="float32", callback=on_audio):
+    with sd.InputStream(samplerate=TARGET_SAMPLE_RATE, channels=1, dtype="float32", callback=on_audio):
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
             while listener.is_alive():
                 if stop_recording.wait(0.05):
@@ -78,9 +93,9 @@ def main() -> None:
                     duration = time.monotonic() - started_at
                     output_file = recordings_folder / "test.wav"
                     if audio_chunks:
-                        sf.write(output_file, np.concatenate(audio_chunks, axis=0), 16_000)
+                        sf.write(output_file, np.concatenate(audio_chunks, axis=0), TARGET_SAMPLE_RATE)
                     else:
-                        sf.write(output_file, [], 16_000)
+                        sf.write(output_file, [], TARGET_SAMPLE_RATE)
                     print(f"Запись сохранена, {duration:.1f} секунд")
                     transcribe(output_file, whisper_model)
                     stop_recording.clear()
