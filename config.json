@@ -28,6 +28,7 @@
     "always_listen": true,
     "wake_words": ["тора", "ториа", "тори", "алиса", "але", "алё", "алеса"],
     "wake_response": "Да, слушаю.",
+    "timeout_response": "Да, что такое?",
     "voice_threshold": 0.03,
     "silence_duration": 0.8,
     "command_timeout": 8.0,

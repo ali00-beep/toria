@@ -133,6 +133,8 @@ class ConsoleUI:
             self._set_status("● Ошибка")
         elif "Микрофон: включён" in message:
             self._set_mic_state("on")
+        elif "Микрофон: ожидание" in message:
+            self._set_mic_state("off")
         elif "Микрофон: выключен" in message:
             self._set_mic_state("off")
         elif "Предупреждение аудио:" in message:
@@ -140,7 +142,10 @@ class ConsoleUI:
         elif "Распознавание: пусто" in message:
             self.console.print(f"[{theme.MUTED}] {message}", style=theme.MUTED)
             self._set_status("● Слушаю…")
-        elif "Слушаю..." in message or "Запись..." in message:
+        elif "Слушаю..." in message:
+            self._set_mic_state("checking")
+            self._set_status("● Проверяю обращение…")
+        elif "Запись..." in message:
             self._set_mic_state("on")
             self._set_status("● Слушаю…")
         elif "Файл сохранён" in message or "Диспетчер готов" in message:
@@ -163,6 +168,8 @@ class ConsoleUI:
         self.mic_state = state
         if state == "on":
             self.console.print("● Микрофон: включён, слушаю", style=theme.SUCCESS)
+        elif state == "checking":
+            self.console.print("● Микрофон: проверяю обращение", style=theme.MUTED)
         elif state == "error":
             self.console.print(f"● Микрофон: ошибка{': ' + message.split(':', 1)[-1].strip() if message else ''}", style=theme.ERROR)
         else:

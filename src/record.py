@@ -229,6 +229,7 @@ def main() -> None:
     always_listen = bool(voice_activation.get("always_listen", True))
     wake_words = [str(word) for word in voice_activation.get("wake_words", ["тора", "ториа", "тори"])]
     wake_response = str(voice_activation.get("wake_response", "Да, слушаю."))
+    timeout_response = str(voice_activation.get("timeout_response", "Да, что такое?"))
     voice_threshold = float(voice_activation.get("voice_threshold", 0.015))
     silence_duration = float(voice_activation.get("silence_duration", 0.8))
     command_timeout = float(voice_activation.get("command_timeout", 8.0))
@@ -249,6 +250,14 @@ def main() -> None:
     speech = SpeechManager(tts_config)
     pending_execution = {"path": None, "deadline": 0.0}
     recording_number = 0
+
+    def remind_about_command(deadline: float) -> None:
+        nonlocal awaiting_command_until
+        time.sleep(max(0.0, deadline - time.monotonic()))
+        if awaiting_command_until == deadline:
+            awaiting_command_until = 0.0
+            print("Микрофон: ожидание")
+            speech.speak(timeout_response)
     print("Прогрев Whisper...")
     warmup_whisper(whisper_model, whisper_device, beam_size, language, initial_prompt, model_cache)
     threading.Thread(target=warmup_dispatcher, args=(dispatcher_config,), daemon=True).start()
@@ -300,6 +309,7 @@ def main() -> None:
             started_at = time.monotonic()
             audio_chunks = []
             stop_recording.clear()
+            print("Микрофон: включён")
             print("Запись...")
 
     def on_release(key):
@@ -309,7 +319,7 @@ def main() -> None:
             return False
 
     print(f"Удерживайте {hotkey_name} для записи. Для выхода нажмите Esc.")
-    print("Микрофон: включён")
+    print("Микрофон: ожидание")
     with sd.InputStream(samplerate=TARGET_SAMPLE_RATE, channels=1, dtype="float32", callback=on_audio):
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
             while listener.is_alive():
@@ -347,13 +357,20 @@ def main() -> None:
                         if not was_wake:
                             stop_recording.clear()
                             continue
+                        print("Микрофон: включён")
                         if not command_text:
                             awaiting_command_until = time.monotonic() + command_timeout
                             speech.speak(wake_response)
+                            threading.Thread(
+                                target=remind_about_command,
+                                args=(awaiting_command_until,),
+                                daemon=True,
+                            ).start()
                             stop_recording.clear()
                             continue
                         recognized_text = command_text
                         awaiting_command_until = 0.0
+                        print("Микрофон: ожидание")
 
                     if is_stop_command(recognized_text):
                         speech.stop()
