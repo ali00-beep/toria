@@ -30,3 +30,14 @@ BLOCK_EMPTY_BELOW = 0.03
 ART_WIDTH = 50
 ART_HEIGHT = 24
 WORD_ART_PATH = "ui/assets/toria_word.txt"
+
+# Цвета и значки основной ленты интерфейса.
+SUCCESS = "green"
+ERROR = "red"
+MUTED = "bright_black"
+TEXT = "white"
+COMMAND = ">"
+DISPATCHER = "⏺"
+EXECUTOR = "⏺"
+OK = "✓"
+FAIL = "✗"

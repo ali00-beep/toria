@@ -23,7 +23,7 @@ from rich.console import Console, Group
 from rich.text import Text
 
 from . import theme
-from .logo import start_screen_lines, word_lines
+from .logo import gradient_line, start_screen_lines, word_lines
 
 ROOT = Path(__file__).resolve().parent.parent
 ART_PATH = ROOT / "ui" / "assets" / "toria_art.json"
@@ -56,7 +56,7 @@ class ConsoleUI:
         right = [
             *word_lines(),
             "",
-            "Голосовой помощник для вашего ПК",
+            gradient_line("Голосовой помощник для вашего ПК"),
             "",
             "v0.1",
             "─" * 62,

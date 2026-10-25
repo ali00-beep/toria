@@ -130,6 +130,12 @@ def word_lines() -> list[str]:
     return out
 
 
+def gradient_line(value: str) -> str:
+    """Одна строка с тем же горизонтальным градиентом, что и логотип."""
+    width = max(len(value), 1)
+    return "".join(" " if ch == " " else _fg(_gradient(index, width)) + ch for index, ch in enumerate(value)) + RESET
+
+
 def start_screen_lines(right_lines: list[str], term_width: int | None = None, mode: str | None = None) -> list[str]:
     """Две колонки: слева эмблема, справа right_lines (по вертикали по центру).
 
